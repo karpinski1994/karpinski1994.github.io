@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import styled from "styled-components";
 import {connect} from "react-redux";
 import {removeProduct} from "actions";
+import {groupBy} from 'lodash';
 
 const StyledButton = styled.button`
   margin-left: 15px;
@@ -26,6 +27,8 @@ export class Products extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const grouped = groupBy(state.products, 'category');
+  console.log('grouped: ', grouped);
   return {products: state.products};
 };
 
