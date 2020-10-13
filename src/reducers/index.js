@@ -8,6 +8,9 @@ const productsReducer = (products = initProducts, action) => {
     case "REMOVE_PRODUCT":
       return products.filter(({name}) => name !== action.payload);
 
+    case "ADD_PRODUCT":
+      return [...products, action.payload];
+
     default:
       return [...products];
   }

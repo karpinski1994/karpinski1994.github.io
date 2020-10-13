@@ -1,37 +1,25 @@
 import React, {Component} from "react";
-import styled from "styled-components";
-import {connect} from "react-redux";
-import {removeProduct} from "actions";
-import {groupBy} from 'lodash';
 
-const StyledButton = styled.button`
-  margin-left: 15px;
-  background-color: black;
-  font-size: 16px;
-  color: white;
-`;
+import {connect} from "react-redux";
+import {removeProduct, addProduct} from "actions";
+import Tabs from 'components/Tabs';
+import Form from 'containers/Form';
 
 export class Products extends Component {
   render() {
-    const {products, removeProduct} = this.props;
-    const productsMarkup = products.map((p) => (
-      <div key={p.name}>
-        Name: {p.name}
-        <StyledButton onClick={() => removeProduct(p.name)}>
-          Delete
-        </StyledButton>
-      </div>
-    ));
-    return <div>{products && productsMarkup}</div>;
+    const {products, removeProduct, addProduct} = this.props;
+    return <div>
+      <Form addProduct={addProduct}/>
+      <Tabs products={products} removeProduct={removeProduct}/>
+      </div>;
   }
 }
 
 const mapStateToProps = (state) => {
-  const grouped = groupBy(state.products, 'category');
-  console.log('grouped: ', grouped);
   return {products: state.products};
 };
 
 export default connect(mapStateToProps, {
   removeProduct,
+  addProduct,
 })(Products);
