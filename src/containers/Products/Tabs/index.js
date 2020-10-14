@@ -4,8 +4,8 @@ import Product from "components/Product";
 import { groupBy, isBuffer } from "lodash";
 
 export const TabsWrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -52,12 +52,16 @@ class Tabs extends Component {
     if (this.props.products !== prevProps.products) {
       this.setState({
         categories: this.getCategories(this.props.products),
+      }, () => {
       });
     }
   }
 
   getCategories = (products) => {
-    return { ...groupBy(products, "category") };
+    return {
+      'All Products': products,
+      ...groupBy(products, "category")
+   };
   };
 
   choseTab = (tab) => {

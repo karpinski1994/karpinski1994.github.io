@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { removeProduct, addProduct, fetchProducts } from "actions";
-import Tabs from "components/Tabs";
-import Form from "containers/Form";
+import Tabs from "containers/Products/Tabs";
 
 export class Products extends Component {
   componentDidMount() {
@@ -14,7 +13,6 @@ export class Products extends Component {
     const { products, removeProduct, addProduct } = this.props;
     return (
       <div>
-        <Form addProduct={addProduct} />
         <Tabs products={products} removeProduct={removeProduct} />
       </div>
     );
@@ -22,8 +20,6 @@ export class Products extends Component {
 }
 
 const mapStateToProps = (state) => {
-console.log('state: ', state);
-  
   return { products: state.products };
 };
 

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import FormItem from 'components/FormItem';
 import Button from 'components/Button';
 
+
+import { connect } from "react-redux";
+import { removeProduct, addProduct, fetchProducts } from "actions";
+
 const FormWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -21,7 +25,11 @@ const formConfig = [
   {id: 'category', label: 'Category', type: 'text', placeholder: 'Other'},
 ];
 
-const Form = ({addProduct, match, history}) => {
+const Form = ({addProduct, match, history, fetchProducts}) => {
+  React.useEffect(()=> {
+    fetchProducts();
+  }, [])
+
   const INIT_DATA = {
     name: '',
     description: '',
@@ -72,4 +80,12 @@ const Form = ({addProduct, match, history}) => {
   );
 };
 
-export default Form;
+
+const mapStateToProps = (state) => {
+  return { products: state.products };
+};
+
+export default connect(mapStateToProps, {
+  addProduct,
+  fetchProducts
+})(Form);
