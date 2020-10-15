@@ -10,10 +10,9 @@ const StyledButton = styled.button`
   text-decoration: none; 
 `;
 
-const Button = ({title, callback, disabled, black}) => {
-console.log('disabled: ', disabled);
+const Button = ({title, callback, black}) => {
   return (
-    <StyledButton disabled={disabled} onClick={() => callback()} black={black}>
+    <StyledButton  onClick={() => callback()} black={black}>
       {title}
     </StyledButton>
   )

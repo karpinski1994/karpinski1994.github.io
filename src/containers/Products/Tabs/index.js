@@ -9,9 +9,6 @@ export const TabsWrapper = styled.div`
   flex-direction: column;
 `;
 
-const CategoryTitle = styled.h1`
-`
-
 export const TabHeader = styled.button`
   display: inline-block;
   margin-left: 15px;
@@ -80,7 +77,8 @@ class Tabs extends Component {
     let cats = [];
     let selectedCat = 'All products;'
     if (categories) {
-       selectedCat = !chosenCat ? Object.keys(categories)[0] : chosenCat;
+      const defaultCat = Object.keys(categories)[0];
+       selectedCat = !chosenCat ? defaultCat : chosenCat;
 
       titles = Object.keys(categories).map((title) => (
         <TabHeader key={shortid.generate()} onClick={() => this.choseTab(title)} underline={selectedCat === title}>
@@ -101,7 +99,6 @@ class Tabs extends Component {
     return (
       <TabsWrapper>
         <Nav>{titles.length && titles}</Nav>
-        <CategoryTitle>{selectedCat || null}</CategoryTitle>
         <Content>{cats}</Content>
       </TabsWrapper>
     );

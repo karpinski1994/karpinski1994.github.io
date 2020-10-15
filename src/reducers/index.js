@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
 // array of products
-// import initProducts from "./products";
+import initProducts from "./products";
 
-const productsReducer = (products = [], action) => {
+const productsReducer = (products = initProducts, action) => {
   switch (action.type) {
     
     case "SET_PRODUCTS":

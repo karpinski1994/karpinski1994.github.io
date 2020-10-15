@@ -6,7 +6,7 @@ import Tabs from "containers/Products/Tabs";
 
 export class Products extends Component {
   componentDidMount() {
-    this.props.fetchProducts();
+    // this.props.fetchProducts();
   }
 
   render() {
@@ -26,5 +26,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   removeProduct,
   addProduct,
-  fetchProducts,
+  // fetchProducts,
 })(Products);

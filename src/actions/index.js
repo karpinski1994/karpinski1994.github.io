@@ -23,7 +23,6 @@ export const setProducts = (products) => {
 export const fetchProducts = () => {
   return function (dispatch) {
     return axios.get("http://localhost:3000/products").then(({ data }) => {
-      console.log('ACTIONS fetchProducts axios data: ', data);
       dispatch(setProducts(data));
     });
   };

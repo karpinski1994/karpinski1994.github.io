@@ -27,7 +27,7 @@ const formConfig = [
 
 const Form = ({addProduct, match, history, fetchProducts}) => {
   React.useEffect(()=> {
-    fetchProducts();
+    // fetchProducts();
   }, [])
 
   const INIT_DATA = {
@@ -40,11 +40,8 @@ const Form = ({addProduct, match, history, fetchProducts}) => {
   });
   const handleOnClick = (e) => {
     e.preventDefault();
-    console.log('productData: ', productData)
     addProduct({...productData});
-    setProductData({
-      ...INIT_DATA
-    })
+    history.push('/');
   };
 
   const handleChange = (e) => {
@@ -71,7 +68,7 @@ const Form = ({addProduct, match, history, fetchProducts}) => {
             />
           ))}
 
-          <Button title="Add product" onClick={(e) => handleOnClick(e)}/>
+          <button onClick={(e) => handleOnClick(e)}>Add product</button>
         </form>
       </FormWrapper>
     </>
@@ -85,5 +82,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   addProduct,
-  fetchProducts
+  // fetchProducts
 })(Form);

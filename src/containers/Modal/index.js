@@ -9,7 +9,6 @@ class Modal extends React.Component {
     super(props);
     // We create an element div for this modal
     this.element = document.createElement("div");
-    console.log('this.element: ', this.element);
   }
   // We append the created div to the div#modal
   componentDidMount() {
