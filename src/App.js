@@ -8,12 +8,13 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  min-height: 100vh;
 `;
 
 const Content = styled.div`
-  flex-basis: 80%;
+  width: 100%;
+  margin: 40px 40px;
 `;
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
       <Wrapper>
         <Nav />
         <Content>
-          <Route path="/list" exact component={ProductsList} />
+          <Route path="/" exact component={ProductsList} />
           <Route path="/add" exact component={ProductsForm} />
         </Content>
       </Wrapper>

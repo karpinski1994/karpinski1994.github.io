@@ -3,8 +3,6 @@ import {combineReducers} from "redux";
 // import initProducts from "./products";
 
 const productsReducer = (products = [], action) => {
-  console.log('products: ', products);
-  console.log('action: ', action);
   switch (action.type) {
     
     case "SET_PRODUCTS":

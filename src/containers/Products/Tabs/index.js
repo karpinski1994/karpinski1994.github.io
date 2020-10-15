@@ -1,14 +1,16 @@
 import React, { Component } from "react";
+import shortid from 'shortid';
 import styled from "styled-components";
 import Product from "components/Product";
 import { groupBy, isBuffer } from "lodash";
 
 export const TabsWrapper = styled.div`
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
 `;
+
+const CategoryTitle = styled.h1`
+`
 
 export const TabHeader = styled.button`
   display: inline-block;
@@ -18,6 +20,8 @@ export const TabHeader = styled.button`
   color: black;
   border: none;
   outline: none;
+  background-color: white;
+  border-bottom: ${props => props.underline? '3px solid gold' : 'none'};
   &:first-child {
     margin-left: 0px;
   }
@@ -25,7 +29,7 @@ export const TabHeader = styled.button`
 
 export const Content = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
 `;
 
 export const Nav = styled.div`
@@ -74,11 +78,12 @@ class Tabs extends Component {
     let { categories, chosenCat } = this.state;
     let titles = [];
     let cats = [];
+    let selectedCat = 'All products;'
     if (categories) {
-      let selectedCat = !chosenCat ? Object.keys(categories)[0] : chosenCat;
+       selectedCat = !chosenCat ? Object.keys(categories)[0] : chosenCat;
 
       titles = Object.keys(categories).map((title) => (
-        <TabHeader onClick={() => this.choseTab(title)}>
+        <TabHeader key={shortid.generate()} onClick={() => this.choseTab(title)} underline={selectedCat === title}>
           {title || "other"}
         </TabHeader>
       ));
@@ -88,7 +93,7 @@ class Tabs extends Component {
         categories[selectedCat].length
       ) {
         cats = categories[selectedCat].map((prod) => {
-          return <Product removeProduct={this.props.removeProduct} {...prod} />;
+          return <Product key={shortid.generate()} removeProduct={this.props.removeProduct} {...prod} />;
         });
       }
     }
@@ -96,6 +101,7 @@ class Tabs extends Component {
     return (
       <TabsWrapper>
         <Nav>{titles.length && titles}</Nav>
+        <CategoryTitle>{selectedCat || null}</CategoryTitle>
         <Content>{cats}</Content>
       </TabsWrapper>
     );

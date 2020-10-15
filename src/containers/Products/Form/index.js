@@ -71,9 +71,7 @@ const Form = ({addProduct, match, history, fetchProducts}) => {
             />
           ))}
 
-          <button onClick={(e) => handleOnClick(e)}>
-            Add Item
-          </button>
+          <Button title="Add product" onClick={(e) => handleOnClick(e)}/>
         </form>
       </FormWrapper>
     </>
