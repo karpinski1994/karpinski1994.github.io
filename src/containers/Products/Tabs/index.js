@@ -1,38 +1,9 @@
 import React, { Component } from "react";
-import shortid from 'shortid';
-import styled from "styled-components";
+import shortid from "shortid";
 import Product from "components/Product";
-import { groupBy, isBuffer } from "lodash";
-
-export const TabsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const TabHeader = styled.button`
-  display: inline-block;
-  margin-left: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  color: black;
-  border: none;
-  outline: none;
-  background-color: white;
-  border-bottom: ${props => props.underline? '3px solid gold' : 'none'};
-  &:first-child {
-    margin-left: 0px;
-  }
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-export const Nav = styled.div`
-  display: flex;
-`;
-
+import { groupBy } from "lodash";
+import TabHeader from 'components/TabHeader';
+import { TabsWrapper, Content, StyledNav } from "./style";
 class Tabs extends Component {
   constructor(props) {
     super(props);
@@ -51,18 +22,20 @@ class Tabs extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.products !== prevProps.products) {
-      this.setState({
-        categories: this.getCategories(this.props.products),
-      }, () => {
-      });
+      this.setState(
+        {
+          categories: this.getCategories(this.props.products),
+        },
+        () => {}
+      );
     }
   }
 
   getCategories = (products) => {
     return {
-      'All Products': products,
-      ...groupBy(products, "category")
-   };
+      "All Products": products,
+      ...groupBy(products, "category"),
+    };
   };
 
   choseTab = (tab) => {
@@ -75,15 +48,18 @@ class Tabs extends Component {
     let { categories, chosenCat } = this.state;
     let titles = [];
     let cats = [];
-    let selectedCat = 'All products;'
+    let selectedCat = "All products;";
     if (categories) {
       const defaultCat = Object.keys(categories)[0];
-       selectedCat = !chosenCat ? defaultCat : chosenCat;
+      selectedCat = !chosenCat ? defaultCat : chosenCat;
 
       titles = Object.keys(categories).map((title) => (
-        <TabHeader key={shortid.generate()} onClick={() => this.choseTab(title)} underline={selectedCat === title}>
-          {title || "other"}
-        </TabHeader>
+        <TabHeader
+          key={shortid.generate()}
+          callback={() => this.choseTab(title)}
+          underline={selectedCat === title}
+          title={title || "other"}
+        />
       ));
       if (
         categories &&
@@ -91,14 +67,20 @@ class Tabs extends Component {
         categories[selectedCat].length
       ) {
         cats = categories[selectedCat].map((prod) => {
-          return <Product key={shortid.generate()} removeProduct={this.props.removeProduct} {...prod} />;
+          return (
+            <Product
+              key={shortid.generate()}
+              removeProduct={this.props.removeProduct}
+              {...prod}
+            />
+          );
         });
       }
     }
 
     return (
       <TabsWrapper>
-        <Nav>{titles.length && titles}</Nav>
+        <StyledNav>{titles.length && titles}</StyledNav>
         <Content>{cats}</Content>
       </TabsWrapper>
     );

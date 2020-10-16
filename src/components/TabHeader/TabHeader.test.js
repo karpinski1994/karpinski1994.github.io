@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import TabHeader, {Title} from '../index'
+import TabHeader, {Title} from '../../containers/Products/Tabs/index'
 
 describe('the TabHeader component', () => {
 

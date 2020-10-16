@@ -1,23 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import FormItem from 'components/FormItem';
 import Button from 'components/Button';
 
-
 import { connect } from "react-redux";
 import { removeProduct, addProduct, fetchProducts } from "actions";
+import {FormWrapper} from './style';
 
-const FormWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  margin: 2% 5%;
-`;
-
-// const SubmitButton = styled(Button)`
-//   background: blue;
-//   margin: 2% 0;
-// `;
 
 const formConfig = [
   {id: 'name', label: 'Name', type: 'text', placeholder: 'Pinon Noire'},
@@ -55,6 +43,7 @@ const Form = ({addProduct, match, history, fetchProducts}) => {
   return (
     <>
       <FormWrapper>
+        <h1>Add product</h1>
         <form>
           {formConfig.map((item) => (
             <FormItem

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 export const Header = styled.button`
@@ -9,12 +8,9 @@ export const Header = styled.button`
   color: black;
   border: none;
   outline: none;
+  background-color: white;
+  border-bottom: ${props => props.underline? '3px solid gold' : 'none'};
   &:first-child {
     margin-left: 0px;
   }
 `;
-const TabHeader = ({ title }) => {
-  return <Header>{title}</Header>;
-};
-
-export default TabHeader;
