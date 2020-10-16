@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/karpinski1994/products-management/public/static/css/main.69eda509.chunk.css",
-    "main.js": "/karpinski1994/products-management/public/static/js/main.41deee4b.chunk.js",
-    "main.js.map": "/karpinski1994/products-management/public/static/js/main.41deee4b.chunk.js.map",
-    "runtime-main.js": "/karpinski1994/products-management/public/static/js/runtime-main.dfeb695c.js",
-    "runtime-main.js.map": "/karpinski1994/products-management/public/static/js/runtime-main.dfeb695c.js.map",
-    "static/js/2.9aedc57a.chunk.js": "/karpinski1994/products-management/public/static/js/2.9aedc57a.chunk.js",
-    "static/js/2.9aedc57a.chunk.js.map": "/karpinski1994/products-management/public/static/js/2.9aedc57a.chunk.js.map",
-    "index.html": "/karpinski1994/products-management/public/index.html",
-    "precache-manifest.2fea93c9e56ae80c0e44f2c1e04bea2d.js": "/karpinski1994/products-management/public/precache-manifest.2fea93c9e56ae80c0e44f2c1e04bea2d.js",
-    "service-worker.js": "/karpinski1994/products-management/public/service-worker.js",
-    "static/css/main.69eda509.chunk.css.map": "/karpinski1994/products-management/public/static/css/main.69eda509.chunk.css.map",
-    "static/js/2.9aedc57a.chunk.js.LICENSE.txt": "/karpinski1994/products-management/public/static/js/2.9aedc57a.chunk.js.LICENSE.txt",
-    "static/media/Cocktails.png": "/karpinski1994/products-management/public/static/media/Cocktails.c2c53e09.png"
+    "main.css": "/products-management/static/css/main.69eda509.chunk.css",
+    "main.js": "/products-management/static/js/main.f3df8d06.chunk.js",
+    "main.js.map": "/products-management/static/js/main.f3df8d06.chunk.js.map",
+    "runtime-main.js": "/products-management/static/js/runtime-main.39efa141.js",
+    "runtime-main.js.map": "/products-management/static/js/runtime-main.39efa141.js.map",
+    "static/js/2.a1eb2052.chunk.js": "/products-management/static/js/2.a1eb2052.chunk.js",
+    "static/js/2.a1eb2052.chunk.js.map": "/products-management/static/js/2.a1eb2052.chunk.js.map",
+    "index.html": "/products-management/index.html",
+    "precache-manifest.552af367bdfa79a9b5f3f3d295b0c15d.js": "/products-management/precache-manifest.552af367bdfa79a9b5f3f3d295b0c15d.js",
+    "service-worker.js": "/products-management/service-worker.js",
+    "static/css/main.69eda509.chunk.css.map": "/products-management/static/css/main.69eda509.chunk.css.map",
+    "static/js/2.a1eb2052.chunk.js.LICENSE.txt": "/products-management/static/js/2.a1eb2052.chunk.js.LICENSE.txt",
+    "static/media/Cocktails.png": "/products-management/static/media/Cocktails.c2c53e09.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.dfeb695c.js",
-    "static/js/2.9aedc57a.chunk.js",
+    "static/js/runtime-main.39efa141.js",
+    "static/js/2.a1eb2052.chunk.js",
     "static/css/main.69eda509.chunk.css",
-    "static/js/main.41deee4b.chunk.js"
+    "static/js/main.f3df8d06.chunk.js"
   ]
 }
