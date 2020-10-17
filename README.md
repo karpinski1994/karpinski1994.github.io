@@ -4,7 +4,7 @@
 axios, lodash, redux, redux-thunk, styled components
 
 **Providing REST-like data**
-I'm using json-server to imitate rest:
+I'm using json-server to imitate server REST API:
 https://www.npmjs.com/package/json-server#getting-started
 
 You can install it locally and then use following comand in the project's root directory:
