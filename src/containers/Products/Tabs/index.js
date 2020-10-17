@@ -4,6 +4,9 @@ import Product from "components/Product";
 import { groupBy } from "lodash";
 import TabHeader from 'components/TabHeader';
 import { TabsWrapper, Content, StyledNav } from "./style";
+
+// TODO: Extract logic from tabs, making it reuasable
+// Tabs Component should take data in format [ {tab: component} ] and render components generically
 class Tabs extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +59,7 @@ class Tabs extends Component {
       titles = Object.keys(categories).map((title) => (
         <TabHeader
           key={shortid.generate()}
-          callback={() => this.choseTab(title)}
+          clickHandler={() => this.choseTab(title)}
           underline={selectedCat === title}
           title={title || "other"}
         />

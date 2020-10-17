@@ -1,10 +1,11 @@
 import React from "react";
 import { StyledButton } from "./style";
 
-const Button = ({ title, callback, black }) => {
+const Button = (props) => {
+
   return (
-    <StyledButton onClick={() => callback()} black={black}>
-      {title}
+    <StyledButton onClick={props.clickHandler} black={props.black}>
+      {props.title}
     </StyledButton>
   );
 };

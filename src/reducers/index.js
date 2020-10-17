@@ -2,6 +2,7 @@ import {combineReducers} from "redux";
 // array of products
 import initProducts from "./products";
 
+// TODO: Reducers should handle async operations, change for ON_SUCCESSFUL_ADD, ON_SUCCESSFSUL_REMOVE etc. 
 const productsReducer = (products = initProducts, action) => {
   switch (action.type) {
     

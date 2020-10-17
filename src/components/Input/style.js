@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const FormItemWrapper = styled.div`
+export const InputWrapper = styled.div`
   display: flex;
   text-align: left;
   flex-direction: column;
@@ -11,13 +11,20 @@ export const Label = styled.label`
   display: block;
   font-weight: bold;
   padding: 10px 0;
+  :first-letter {
+    text-transform:capitalize;
+  } 
 `;
 
-export const Input = styled.input`
+export const StyledInput = styled.input`
   flex-basis: 60%;
   border: 0;
   font-size: inherit;
   border-radius: 5px;
   padding: 10px;
-  border: 1px solid lightGrey;
+  border: ${({invalid, touched}) => invalid || !touched ? '1px solid red' : '1px solid lightGrey'}
+`;
+
+export const Error = styled.p`
+  color: red;
 `;

@@ -57,8 +57,8 @@ class Product extends Component {
           <Name>{name}</Name>
           <StyledCategory>{category}</StyledCategory>
           <ButtonsGroup column>
-            <Button title="Details" callback={this.toggleDetailsModal} />
-            <Button title="Remove" callback={this.toggleRemovalModal} black />
+            <Button title="Details" clickHandler={this.toggleDetailsModal} />
+            <Button title="Remove" clickHandler={this.toggleRemovalModal} black />
           </ButtonsGroup>
         </Details>
 
@@ -70,7 +70,7 @@ class Product extends Component {
               <ButtonsGroup>
                 <Button
                   title="Close"
-                  callback={this.toggleDetailsModal}
+                  clickHandler={this.toggleDetailsModal}
                   black
                 />
               </ButtonsGroup>
@@ -83,10 +83,10 @@ class Product extends Component {
               <h1>Remove product</h1>
               <p>Are you sure you want to remove this product?</p>
               <ButtonsGroup>
-                <Button title="Cancel" callback={this.handleCancelClick} />
+                <Button title="Cancel" clickHandler={this.handleCancelClick} />
                 <Button
                   title="Yes"
-                  callback={() => this.handleOkClick(name)}
+                  clickHandler={() => this.handleOkClick(name)}
                   black
                 />
               </ButtonsGroup>

@@ -1,69 +1,135 @@
-import React from 'react';
-import FormItem from 'components/FormItem';
-import Button from 'components/Button';
+import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { removeProduct, addProduct, fetchProducts } from "actions";
-import {FormWrapper} from './style';
+import { FormWrapper } from "./style";
+// import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from "components/Input";
+import Button from "components/Button";
+import { isFieldValid } from "./validation";
+import { debounce } from "lodash";
 
-
-const formConfig = [
-  {id: 'name', label: 'Name', type: 'text', placeholder: 'Pinon Noire'},
-  {id: 'description', label: 'Description', type: 'text', placeholder: 'Some description...'},
-  {id: 'category', label: 'Category', type: 'text', placeholder: 'Other'},
-];
-
-const Form = ({addProduct, match, history, fetchProducts}) => {
-  React.useEffect(()=> {
-    // fetchProducts();
-  }, [])
-
-  const INIT_DATA = {
-    name: '',
-    description: '',
-    category: '',
-  }
-  const [productData, setProductData] = React.useState({
-    ...INIT_DATA
-  });
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    addProduct({...productData});
-    history.push('/');
+class ProductForm extends Component {
+  state = {
+    isFormValid: false,
+    loading: false,
+    productForm: {
+      name: {
+        config: {
+          type: "text",
+          placeholder: "Name",
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+        },
+        valid: false,
+        touched: false,
+        errors: [],
+      },
+      category: {
+        config: {
+          type: "text",
+          placeholder: "Category",
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+        },
+        valid: false,
+        touched: false,
+        errors: [],
+      },
+      description: {
+        config: {
+          type: "text",
+          placeholder: "Description",
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+        },
+        valid: false,
+        touched: false,
+        errors: [],
+      },
+    },
   };
 
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    setProductData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  submitHandler = (event) => {
+    event.preventDefault();
+    const { isFormValid } = this.state;
+    this.setState({ loading: true });
+    const formData = {};
+    for (let fieldId in this.state.productForm) {
+      formData[fieldId] = this.state.productForm[fieldId].value;
+    }
+    // TODO: Probably post to json can be handled by axios
   };
 
-  return (
-    <>
-      <FormWrapper>
-        <h1>Add product</h1>
-        <form>
-          {formConfig.map((item) => (
-            <FormItem
-              key={item.id}
-              handleOnChange={handleChange}
-              id={item.id}
-              type={item.type}
-              label={item.label}
-              placeholder={item.placeholder}
-              value={productData[item.id]}
+  changeHandler = (event, id) => {
+    const productForm = {
+      ...this.state.productForm,
+    };
+    const field = {
+      ...productForm[id],
+    };
+    field.value = event.target.value;
+    const { isValid, errors } = isFieldValid(field, field.validation);
+    field.errors = errors;
+    field.valid = isValid;
+    field.touched = true;
+    productForm[id] = field;
+
+    let isFormValid = true;
+    for (let id in productForm) {
+      isFormValid = productForm[id].valid && isFormValid;
+    }
+    this.setState({ productForm, isFormValid });
+  };
+
+  render() {
+    const formFields = [];
+    for (let key in this.state.productForm) {
+      formFields.push({
+        id: key,
+        config: this.state.productForm[key],
+      });
+    }
+    let form = (
+      <form onSubmit={this.submitHandler}>
+        {formFields.map((field) => {
+          return (
+            <Input
+              key={field.id}
+              label={field.id}
+              config={field.config.config}
+              value={field.config.value}
+              invalid={!field.config.valid}
+              touched={field.config.touched}
+              errors={field.config.errors}
+              changeHandler={(e) => this.changeHandler(e, field.id)}
             />
-          ))}
-
-          <button onClick={(e) => handleOnClick(e)}>Add product</button>
-        </form>
+          );
+        })}
+        <Button title="Add product" />
+      </form>
+    );
+    // TODO: Add some loading animation
+    // if ( this.state.loading ) {
+    //     form = <Loading/>;
+    // }
+    return (
+      <FormWrapper>
+        <h1>Add Product</h1>
+        {form}
       </FormWrapper>
-    </>
-  );
-};
-
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return { products: state.products };
@@ -72,4 +138,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   addProduct,
   // fetchProducts
-})(Form);
+})(ProductForm);
