@@ -66,9 +66,8 @@ class ProductForm extends Component {
     for (let fieldId in this.state.productForm) {
       formData[fieldId] = this.state.productForm[fieldId].value;
     }
-    console.log('formData: ', formData)
     this.props.addProductAction(formData)
-    // TODO: Probably post to json can be handled by axios
+    // TODO: Handle clearing form on successful save in better way
   };
 
   changeHandler = (event, id) => {
@@ -120,9 +119,9 @@ class ProductForm extends Component {
       </form>
     );
     // TODO: Add some loading animation
-    // if ( this.state.loading ) {
-    //     form = <Loading/>;
-    // }
+    if ( this.state.loading ) {
+        form = <div>Loading...</div>;
+    }
     return (
       <FormWrapper>
         <h1>Add Product</h1>
@@ -138,5 +137,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   addProductAction,
-  // fetchProducts
 })(ProductForm);

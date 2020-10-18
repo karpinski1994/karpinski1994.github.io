@@ -54,7 +54,6 @@ const addProduct = async (req, res, next) => {
     updatedProducts = await Product.find();
     await sess.commitTransaction();
   } catch (err) {
-    console.log('error: ', err)
     const error = new HttpError(
       "Creating product failed, please try again.",
       500

@@ -1,6 +1,7 @@
 import React from "react";
 import shortid from "shortid";
 import { InputWrapper, StyledInput, Label, Error } from "./style";
+
 const Input = ({
   id,
   label,
@@ -11,7 +12,7 @@ const Input = ({
   touched,
   errors,
   config,
-}) =>{ 
+}) => {
   return (
     <InputWrapper>
       <Label htmlFor={id}>{label}</Label>
@@ -25,10 +26,11 @@ const Input = ({
       />
       <div>
         {/* TODO: Add some transition using ReactCSSTransitionGroup */}
-        {errors && errors.map(err => <Error key={shortid.generate()}>{err}</Error>)}
+        {errors &&
+          errors.map((err) => <Error key={shortid.generate()}>{err}</Error>)}
       </div>
     </InputWrapper>
-)};
-
+  );
+};
 
 export default Input;

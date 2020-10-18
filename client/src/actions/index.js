@@ -1,8 +1,9 @@
 import axios from "axios";
-const REMOVE_PRODUCT = "REMOVE_PRODUCT";
-const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
-const ADD_PRODUCT_SUCCESS = "ADD_PRODUCTS_SUCCESS";
-const REMOVE_PRODUCT_SUCCESS = "REMOVE_PRODUCT_SUCCESS";
+export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
+export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
+export const ADD_PRODUCT_SUCCESS = "ADD_PRODUCTS_SUCCESS";
+export const REMOVE_PRODUCT_SUCCESS = "REMOVE_PRODUCT_SUCCESS";
+const API_URL = "http://localhost:5000/api/products";
 
 export const removeProduct = (productName) => ({
   type: REMOVE_PRODUCT,
@@ -34,10 +35,9 @@ export const addProductSuccess = (products) => {
   };
 };
 
-const API_URL = "http://localhost:5000/api/products";
 export const fetchProducts = () => {
   return function (dispatch) {
-    // TODO: Handle fetch products failure
+    // TODO: Handle fetch products failures
     return axios.get(API_URL).then(({ data }) => {
       dispatch(fetchProductsSuccess([...data.products]));
     });
@@ -47,7 +47,6 @@ export const fetchProducts = () => {
 export const removeProductAction = (id) => {
   return function (dispatch) {
     return axios.delete(`${API_URL}/${id}`).then(({data}) => {
-    console.log('removeProductAction data: ', data);
       dispatch(removeProductSuccess(data.products))
     });
   };
@@ -60,6 +59,8 @@ export const addProductAction = (product) => {
       url: API_URL,
       data: JSON.stringify(product),
       headers: { "Content-Type": "application/json" },
+    }).then(data => {
+      dispatch(addProductSuccess(data.products))
     })
   };
 };

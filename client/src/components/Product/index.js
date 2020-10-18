@@ -58,7 +58,11 @@ class Product extends Component {
           <StyledCategory>{category}</StyledCategory>
           <ButtonsGroup column>
             <Button title="Details" clickHandler={this.toggleDetailsModal} />
-            <Button title="Remove" clickHandler={this.toggleRemovalModal} black />
+            <Button
+              title="Remove"
+              clickHandler={this.toggleRemovalModal}
+              black
+            />
           </ButtonsGroup>
         </Details>
 
