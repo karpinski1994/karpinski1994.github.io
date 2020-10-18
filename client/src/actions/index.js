@@ -22,8 +22,8 @@ export const setProducts = (products) => {
 
 export const fetchProducts = () => {
   return function (dispatch) {
-    return axios.get("http://localhost:3000/products").then(({ data }) => {
-      dispatch(setProducts(data));
+    return axios.get("http://localhost:5000/api/products/").then(({ data }) => {
+      dispatch(setProducts([...data.products]));
     });
   };
 };

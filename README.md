@@ -1,16 +1,14 @@
 # MRM React Test Project - Solution description
 
 **Stack:**
-axios, lodash, redux, redux-thunk, styled components
+axios, lodash, redux, redux-thunk, styled components, nodejs, express, mongodb, mongoose
 
-**Providing REST-like data**
-I'm using json-server to imitate rest:
-https://www.npmjs.com/package/json-server#getting-started
+**To start the application:**
+1) Run npm install in **both** client and server directiories
+2) Run npm start in server directory
+3) After a while (when the server started) run npm start in client directory
 
-You can install it locally and then use following comand in the project's root directory:
-npx json-server --watch ./data/db.json
-
-When starting react app cli can ask you about serving app on another port because of 3000 being used just type 'y' and hit 'enter'
+That's it, enjoy!
 
 # MRM React Test Project
 
