@@ -3,12 +3,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { removeProduct, addProduct, fetchProducts } from "actions";
 import { FormWrapper } from "./style";
-// import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from "components/Input";
 import Button from "components/Button";
 import { isFieldValid } from "./validation";
-import { debounce } from "lodash";
 
+// TODO: Handle adding the same product twice
 class ProductForm extends Component {
   state = {
     isFormValid: false,

@@ -4,13 +4,14 @@ import { connect } from "react-redux";
 import { removeProduct, addProduct, fetchProducts } from "actions";
 import Tabs from "containers/Products/Tabs";
 
+// TODO: Here should be the whole logic connected to products and passed to generic tabs
 export class Products extends Component {
   componentDidMount() {
-    // this.props.fetchProducts();
+    this.props.fetchProducts();
   }
 
   render() {
-    const { products, removeProduct, addProduct } = this.props;
+    const { products, removeProduct } = this.props;
     return (
       <div>
         <Tabs products={products} removeProduct={removeProduct} />
@@ -26,5 +27,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   removeProduct,
   addProduct,
-  // fetchProducts,
+  fetchProducts,
 })(Products);
