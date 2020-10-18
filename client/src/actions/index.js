@@ -28,7 +28,7 @@ export const addProductSuccess = (products) => {
   return {
     type: ADD_PRODUCT_SUCCESS,
     payload: {
-      loading: false,
+      loaded: true,
       error: false,
       products
     },

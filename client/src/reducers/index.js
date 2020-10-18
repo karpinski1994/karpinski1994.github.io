@@ -14,13 +14,16 @@ console.log('action: ', action);
       return [...action.payload];
 
     case ADD_PRODUCT_SUCCESS:
-      return [...action.payload.products];
+      return {
+        loaded: true,
+        products: [...action.payload.products]
+      };
 
     default:
       return [...products];
   }
 };
-
+// TODO: Clean reducer
 export default combineReducers({
   products: productsReducer,
 });
