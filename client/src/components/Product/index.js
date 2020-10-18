@@ -35,8 +35,8 @@ class Product extends Component {
     });
   };
 
-  handleOkClick = (name) => {
-    this.props.removeProduct(name);
+  handleOkClick = (id) => {
+    this.props.removeProduct(id);
     this.toggleRemovalModal();
   };
 
@@ -45,7 +45,7 @@ class Product extends Component {
   };
 
   render() {
-    const { name, description, category } = this.props;
+    const { id, name, description, category } = this.props;
     const { showRemovalModal, showDetailsModal } = this.state;
 
     return (
@@ -86,7 +86,7 @@ class Product extends Component {
                 <Button title="Cancel" clickHandler={this.handleCancelClick} />
                 <Button
                   title="Yes"
-                  clickHandler={() => this.handleOkClick(name)}
+                  clickHandler={() => this.handleOkClick(id)}
                   black
                 />
               </ButtonsGroup>

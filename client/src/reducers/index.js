@@ -8,15 +8,14 @@ import {combineReducers} from "redux";
 const productsReducer = (products = [], action) => {
 console.log('action: ', action);
   switch (action.type) {
-    
-    case "SET_PRODUCTS":
+    case "FETCH_PRODUCTS_SUCCESS":
       return [...action.payload];
 
-    case "REMOVE_PRODUCT":
-      return products.filter(({name}) => name !== action.payload);
+    case "REMOVE_PRODUCT_SUCCESS":
+      return [...action.payload];
 
-    case "ADD_PRODUCT":
-      return [...products, action.payload];
+    case "ADD_PRODUCT_SUCCESS":
+      return [...action.payload];
 
     default:
       return [...products];

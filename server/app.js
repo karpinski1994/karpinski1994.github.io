@@ -34,6 +34,8 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
+        'mongodb+srv://pkarpinski:mrmglobal@products-management.1nxya.mongodb.net/products-management?retryWrites=true&w=majority'
+
   )
   .then(() => {
     app.listen(5000);

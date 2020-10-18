@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { removeProduct, addProduct, fetchProducts } from "actions";
+import { removeProduct, addProductAction, fetchProducts } from "actions";
 import { FormWrapper } from "./style";
 import Input from "components/Input";
 import Button from "components/Button";
@@ -66,6 +66,8 @@ class ProductForm extends Component {
     for (let fieldId in this.state.productForm) {
       formData[fieldId] = this.state.productForm[fieldId].value;
     }
+    console.log('formData: ', formData)
+    this.props.addProductAction(formData)
     // TODO: Probably post to json can be handled by axios
   };
 
@@ -135,6 +137,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  addProduct,
+  addProductAction,
   // fetchProducts
 })(ProductForm);

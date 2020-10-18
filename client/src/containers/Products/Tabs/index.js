@@ -72,6 +72,7 @@ class Tabs extends Component {
         cats = categories[selectedCat].map((prod) => {
           return (
             <Product
+              id={prod._id}
               key={shortid.generate()}
               removeProduct={this.props.removeProduct}
               {...prod}
