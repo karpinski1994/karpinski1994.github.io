@@ -40,7 +40,6 @@ app.use((error, req, res, next) => {
 // TODO: Business logic should be framework agnostic
 mongoose
   .connect(
-
   )
   .then(() => {
     app.listen(5000);

@@ -4,11 +4,13 @@
 axios, lodash, redux, redux-thunk, styled components, nodejs, express, mongodb, mongoose
 
 **To start the application:**
-1) Run npm install in **both** client and server directiories
+1) Run npm install in **both** server and client directiories
 2) Run npm start in server directory
 3) After a while (when the server started) run npm start in client directory
 
 That's it, enjoy!
+
+
 
 # MRM React Test Project
 

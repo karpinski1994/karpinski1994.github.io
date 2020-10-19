@@ -16,7 +16,7 @@ const Content = styled.div`
   width: 100%;
   margin: 40px 40px;
 `;
-
+// TODO: Add better RWD
 function App() {
   return (
     <BrowserRouter>

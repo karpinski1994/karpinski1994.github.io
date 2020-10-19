@@ -8,7 +8,9 @@ import Input from "components/Input";
 import Button from "components/Button";
 import { isFieldValid } from "./validation";
 
-// TODO: Handle adding the same product twice
+// TODO: Prevent adding the same product twice
+// TODO: Improve validation info
+// TODO: Handle Server's validation
 class ProductForm extends Component {
   state = {
     isFormValid: false,

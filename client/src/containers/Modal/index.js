@@ -1,7 +1,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 const modalRoot = document.getElementById("modal");
-
+// TODO: Display modal considering current scrolling position
 class Modal extends React.Component {
   constructor(props) {
     super(props);
