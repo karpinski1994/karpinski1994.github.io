@@ -1,12 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
 const productsRoutes = require("./routes/products-routes");
 const HttpError = require("./models/http-error");
 
+const dotenv = require("dotenv")
+dotenv.config()
 const app = express();
-
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -40,6 +40,7 @@ app.use((error, req, res, next) => {
 // TODO: Business logic should be framework agnostic
 mongoose
   .connect(
+        `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@products-management.1nxya.mongodb.net/products-management?retryWrites=true&w=majority`
   )
   .then(() => {
     app.listen(5000);
