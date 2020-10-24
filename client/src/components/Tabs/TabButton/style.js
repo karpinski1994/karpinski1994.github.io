@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Header = styled.button`
+export const Button = styled.button`
   display: inline-block;
   margin-left: 15px;
   font-size: 16px;

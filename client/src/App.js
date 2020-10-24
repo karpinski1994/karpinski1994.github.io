@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import ProductsList from "containers/Products/List";
+import ProductsView from "containers/Products/View";
 import ProductsForm from "containers/Products/Form";
 import Nav from "components/Nav";
-
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -23,8 +22,9 @@ function App() {
       <Wrapper>
         <Nav />
         <Content>
-          <Route path="/" exact component={ProductsList} />
+          <Route path="/" exact component={ProductsView} />
           <Route path="/add" exact component={ProductsForm} />
+          {/* <Route path="/tabs" exact component={Standard}/> */}
         </Content>
       </Wrapper>
     </BrowserRouter>

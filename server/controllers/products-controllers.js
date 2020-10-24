@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const HttpError = require("../models/http-error");
 const Product = require("../models/product");
 
+
+
 const getProducts = async (req, res, next) => {
   let products;
   try {
