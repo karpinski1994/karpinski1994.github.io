@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import increase from "./increase";
-import decrease from "./decrease";
-import { createArrFromNumber } from "./utils";
+import { createArrFromNumber, decrease, increase } from "./utils";
+
+const sliderBtnWidth = 72;
+const sliderBtnHeight = 27;
+const sliderRadius = 27;
+const bgColor = '#aaa';
+
+const PrecisionBtn = styled.button`
+  height: auto;
+`;
 
 const Wrapper = styled.div`
-  font-size: 20px;
+  width: 100%;
+  height: ${sliderBtnHeight}px;
   text-align: center;
   > * {
     margin: 20px;
   }
 `;
-
+// TODO: adjust shadows of background and button (left-right)
 const SliderWrapper = styled.div`
+  width: 100%;
   display: flex;
+  height: auto;
+  background-color: ${bgColor};
+  border-radius: ${sliderRadius}px;
 `;
 
 const Slider = styled.div`
@@ -21,28 +33,41 @@ const Slider = styled.div`
   width: 100%;
 `;
 
+const Row = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 const Step = styled.div`
-  background-color: ${({ isHandler }) => (isHandler ? "red" : "orange")};
-  width: ${({max, isHandler}) => isHandler ? '50px' : `calc((100% - 50px) / ${max})`};
-  height: 30px;
+  /* TODO: set propper css property for selecting button as a whole */
+  user-select: all;
+  background-color: ${({ isHandler }) => (isHandler ? "white" : null)};
+  border: ${({ isHandler }) => (isHandler ? `1px solid ${bgColor}`: null)};
+  border-radius: ${sliderRadius}px;
+  width: ${({ max, step, isHandler }) =>
+    isHandler
+      ? sliderBtnWidth + "px"
+      : `calc((100% - ${sliderBtnWidth}px) / (${max}) / ${step})`};
 `;
 
 const Handler = styled.div`
   background-color: orange;
 `;
 
-const Score = styled.div`
+const Score = styled.div``;
 
-`;
+const Message = styled.div``;
 
-const Message = styled.div`
-
-`;
-
-const CustomSlider = () => {
+const CustomSlider = ({ label, max, min, step, value, unit, onChange }) => {
   const [state, setQuantity] = useState({ quantity: 0 });
-  const max = 100;
-  const min = 0;
+
+  useEffect(() => {
+    setQuantity({quantity: value})
+  }, []);
+
+  useEffect(() => {
+    onChange();
+  }, [state.quantity]);
 
   const onDragStart = (e, id) => {
     // e.dataTransfer.setData("id", id);
@@ -76,33 +101,35 @@ const CustomSlider = () => {
     );
   };
 
+  const steps = React.useMemo(() =>
+    createArrFromNumber(max + 1).map((id) => {
+      const isHandler = id === state.quantity;
+      return (
+        <Step
+          step={step}
+          max={max}
+          isHandler={isHandler}
+          onClick={(e) => onStepClick(e, id)}
+          onDragStart={(e) => onDragStart(e, id)}
+          onDragOver={(e) => onDragOver(e, id)}
+          key={id}
+        >
+          {isHandler ? state.quantity + ` ${unit ? ` ${unit}` : null}` : null}
+        </Step>
+      );
+    })
+  );
+
   return (
     <Wrapper>
-      <SliderWrapper>
-        <button onClick={onClickMinus}>-</button>
-        {max && (
-          <Slider>
-            {createArrFromNumber(max + 1).map((id) => (
-              <Step
-                max={max}
-                isHandler={id === state.quantity}
-                onClick={(e) => onStepClick(e, id)}
-                onDragStart={(e) => onDragStart(e, id)}
-                onDragOver={(e) => onDragOver(e, id)}
-                key={id}
-              />
-            ))}
-          </Slider>
-        )}
-        <button onClick={onClickPlus}>+</button>
-      </SliderWrapper>
+      <Row>
+        <PrecisionBtn onClick={onClickMinus}>-</PrecisionBtn>
+        <SliderWrapper>{max && <Slider>{steps}</Slider>}</SliderWrapper>
+        <PrecisionBtn onClick={onClickPlus}>+</PrecisionBtn>
+      </Row>
       <Score>
-        <Message>
-          {state.quantity}
-        </Message>
-        <Message>
-          {state.message}
-        </Message>
+        <Message>{state.quantity}</Message>
+        <Message>{state.message}</Message>
       </Score>
     </Wrapper>
   );

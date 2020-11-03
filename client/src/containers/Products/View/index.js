@@ -6,6 +6,8 @@ import shortid from "shortid";
 // import Tabs from "containers/Products/Tabs";
 import { StandardTabs } from "components/Tabs/standard";
 import Product from "components/Product";
+
+import Slider from 'components/Slider'
 // TODO: Here should be the whole logic connected to products and passed to generic tabs
 export class Products extends Component {
   componentDidMount() {
@@ -49,10 +51,18 @@ export class Products extends Component {
       this.getAllProductsCategory(products),
       ...this.getCategoriesComponents(categories),
     ];
+    const onFirstChange = () => {
+      console.log('first change')
+    }
+    const onSecondChange = () => {
+      console.log('second change')
+    }
     return (
       <div>
         {/* <Tabs products={products} removeProduct={removeProd} /> */}
-        <StandardTabs items={items} />
+        {/* <StandardTabs items={items} /> */}
+        <Slider onChange={onFirstChange} label='Percentage Label' min={0} max={100} step={1} value={33} unit='%'/>
+        <Slider onChange={onSecondChange} label='Percentage Label' min={0} max={1} step={0.1} value={0.5} unit='p'/>
       </div>
     );
   }
