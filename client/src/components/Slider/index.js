@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { createArrFromNumber, decrease, increase } from "./utils";
 
@@ -37,16 +37,19 @@ const Row = styled.div`
   width: 100%;
   display: flex;
 `;
-
+// TODO: Change slider's logic to move csses only nad numbers without re-rendering everything
 const Step = styled.div`
   /* TODO: set propper css property for selecting button as a whole */
+
   user-select: all;
   background-color: ${({ isHandler }) => (isHandler ? "white" : null)};
   border: ${({ isHandler }) => (isHandler ? `1px solid ${bgColor}`: null)};
   border-radius: ${sliderRadius}px;
+  // TODO: Center position of clicked step
   width: ${({ max, step, isHandler }) =>
     isHandler
       ? sliderBtnWidth + "px"
+      // TODO: improve calculation of width (with steps and max)
       : `calc((100% - ${sliderBtnWidth}px) / (${max}) / ${step})`};
 `;
 
@@ -58,7 +61,7 @@ const Score = styled.div``;
 
 const Message = styled.div``;
 
-const CustomSlider = ({ label, max, min, step, value, unit, onChange }) => {
+const CustomSlider = ({ label, max, min, step, value, unit, onChange, preciseButons }) => {
   const [state, setQuantity] = useState({ quantity: 0 });
 
   useEffect(() => {
@@ -80,7 +83,7 @@ const CustomSlider = ({ label, max, min, step, value, unit, onChange }) => {
       quantity: id,
     }));
   };
-
+  // TODO: Center position of clicked step
   const onStepClick = (e, id) => {
     setQuantity((prevState) => ({
       ...prevState,
@@ -101,7 +104,7 @@ const CustomSlider = ({ label, max, min, step, value, unit, onChange }) => {
     );
   };
 
-  const steps = React.useMemo(() =>
+  const steps = useMemo(() =>
     createArrFromNumber(max + 1).map((id) => {
       const isHandler = id === state.quantity;
       return (
@@ -123,9 +126,9 @@ const CustomSlider = ({ label, max, min, step, value, unit, onChange }) => {
   return (
     <Wrapper>
       <Row>
-        <PrecisionBtn onClick={onClickMinus}>-</PrecisionBtn>
+        {preciseButons && <PrecisionBtn onClick={onClickMinus}>-</PrecisionBtn>}
         <SliderWrapper>{max && <Slider>{steps}</Slider>}</SliderWrapper>
-        <PrecisionBtn onClick={onClickPlus}>+</PrecisionBtn>
+        {preciseButons && <PrecisionBtn onClick={onClickPlus}>+</PrecisionBtn>}
       </Row>
       <Score>
         <Message>{state.quantity}</Message>
@@ -134,5 +137,7 @@ const CustomSlider = ({ label, max, min, step, value, unit, onChange }) => {
     </Wrapper>
   );
 };
-
+// TODO: Prevent rerendering each step, maybe some memoization,
+// TODO: Rerender only steps that change by using sliding window technique
+// TODO: Change slider's logic to move csses only nad numbers without re-rendering everything
 export default CustomSlider;
