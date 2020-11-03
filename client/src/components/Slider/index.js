@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { createArrFromNumber, decrease, increase } from "./utils";
+import { createArrFromNumber, calculateStepsQuantity, decrease, increase } from "./utils";
 
 const sliderBtnWidth = 72;
 const sliderBtnHeight = 27;
 const sliderRadius = 27;
-const bgColor = '#aaa';
+const bgColor = "#aaa";
 
 const PrecisionBtn = styled.button`
   height: auto;
@@ -37,35 +37,42 @@ const Row = styled.div`
   width: 100%;
   display: flex;
 `;
+
+const countWidth = (min, max, step) => {
+  // return `calc(100% / ((${max - min}) * ${step}))`; 
+  return `calc(100% / ${100}`; 
+};
 // TODO: Change slider's logic to move csses only nad numbers without re-rendering everything
 const Step = styled.div`
   /* TODO: set propper css property for selecting button as a whole */
 
   user-select: all;
   background-color: ${({ isHandler }) => (isHandler ? "white" : null)};
-  border: ${({ isHandler }) => (isHandler ? `1px solid ${bgColor}`: null)};
+  border: ${({ isHandler }) => (isHandler ? `1px solid ${bgColor}` : null)};
   border-radius: ${sliderRadius}px;
   // TODO: Center position of clicked step
-  width: ${({ max, step, isHandler }) =>
-    isHandler
-      ? sliderBtnWidth + "px"
-      // TODO: improve calculation of width (with steps and max)
-      : `calc((100% - ${sliderBtnWidth}px) / (${max}) / ${step})`};
-`;
-
-const Handler = styled.div`
-  background-color: orange;
+  width: calc(100% / ${({ stepsQuantity }) =>  stepsQuantity});
 `;
 
 const Score = styled.div``;
 
 const Message = styled.div``;
 
-const CustomSlider = ({ label, max, min, step, value, unit, onChange, preciseButons }) => {
+const CustomSlider = ({
+  label,
+  max,
+  min,
+  step,
+  value,
+  unit,
+  onChange,
+  preciseButons,
+}) => {
   const [state, setQuantity] = useState({ quantity: 0 });
+  const stepsQuantity = calculateStepsQuantity(min, max, step);
 
   useEffect(() => {
-    setQuantity({quantity: value})
+    setQuantity({ quantity: value });
   }, []);
 
   useEffect(() => {
@@ -73,7 +80,7 @@ const CustomSlider = ({ label, max, min, step, value, unit, onChange, preciseBut
   }, [state.quantity]);
 
   const onDragStart = (e, id) => {
-    // e.dataTransfer.setData("id", id);
+    e.dataTransfer.effectAllowed = "none";
   };
 
   const onDragOver = (e, id) => {
@@ -94,23 +101,30 @@ const CustomSlider = ({ label, max, min, step, value, unit, onChange, preciseBut
 
   const onClickPlus = () => {
     setQuantity((prevState) =>
-      increase({ previousQuantity: prevState.quantity, max: max })
+      increase({ previousQuantity: prevState.quantity, max, step })
     );
   };
 
   const onClickMinus = () => {
     setQuantity((prevState) =>
-      decrease({ previousQuantity: prevState.quantity, min: min })
+      decrease({ previousQuantity: prevState.quantity, min, step })
     );
   };
+  
+console.log("arr: ", createArrFromNumber(min,max,step))
 
   const steps = useMemo(() =>
-    createArrFromNumber(max + 1).map((id) => {
-      const isHandler = id === state.quantity;
+    createArrFromNumber(min,max,step).map((id) => {
+    console.log('id: ', id);
+      console.log('state.quantity: ', state.quantity);
+      const isHandler = Number(id) === Number(state.quantity);
+      console.log('isHandler: ', isHandler);
       return (
         <Step
-          step={step}
-          max={max}
+          // min={min}
+          // max={max}
+          // step={step}
+          stepsQuantity={stepsQuantity}
           isHandler={isHandler}
           onClick={(e) => onStepClick(e, id)}
           onDragStart={(e) => onDragStart(e, id)}

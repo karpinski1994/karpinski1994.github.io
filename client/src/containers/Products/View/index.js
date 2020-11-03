@@ -61,8 +61,8 @@ export class Products extends Component {
       <div>
         {/* <Tabs products={products} removeProduct={removeProd} /> */}
         {/* <StandardTabs items={items} /> */}
-        <Slider onChange={onFirstChange} label='Percentage Label' min={0} max={100} step={1} value={33} unit='%' preciseButons/>
-        <Slider onChange={onSecondChange} label='Percentage Label' min={0} max={1} step={0.1} value={0.5} unit='p' />
+        <Slider onChange={onFirstChange} label='Percentage Label' min={0} max={100} step={1} value={30} unit='%' preciseButons/>
+        {/* <Slider onChange={onSecondChange} label='Percentage Label' min={0} max={1} step={0.1} value={0.5} unit='p' /> */}
       </div>
     );
   }
