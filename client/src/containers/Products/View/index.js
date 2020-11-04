@@ -7,7 +7,7 @@ import shortid from "shortid";
 import { StandardTabs } from "components/Tabs/standard";
 import Product from "components/Product";
 
-import Slider from 'components/Slider'
+import Slider from 'components/Slider/index'
 // TODO: Here should be the whole logic connected to products and passed to generic tabs
 export class Products extends Component {
   componentDidMount() {
