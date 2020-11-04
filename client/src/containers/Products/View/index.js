@@ -6,8 +6,16 @@ import shortid from "shortid";
 // import Tabs from "containers/Products/Tabs";
 import { StandardTabs } from "components/Tabs/standard";
 import Product from "components/Product";
+import styled from 'styled-components'
 
 import Slider from 'components/Slider/index'
+
+export const Panel = styled.div`
+  box-shadow: 0px 6px 22px -1px rgba(0,0,0,0.75);
+  height: 210px;
+  width: 510px;
+  padding: 25px;
+`
 // TODO: Here should be the whole logic connected to products and passed to generic tabs
 export class Products extends Component {
   componentDidMount() {
@@ -58,12 +66,12 @@ export class Products extends Component {
       console.log('second change')
     }
     return (
-      <div>
+      <Panel>
         {/* <Tabs products={products} removeProduct={removeProd} /> */}
         {/* <StandardTabs items={items} /> */}
-        <Slider onChange={onFirstChange} label='Percentage Label' min={0} max={100} step={1} value={30} unit='%' preciseButons/>
-        {/* <Slider onChange={onSecondChange} label='Percentage Label' min={0} max={1} step={0.1} value={0.5} unit='p' /> */}
-      </div>
+        <Slider onChange={onFirstChange} label='Percentages' min={0} max={100} step={1} value={30} unit='%' preciseButons/>
+        <Slider onChange={onSecondChange} label='Units' min={0} max={1} step={0.1} value={0.5} unit='p' />
+      </Panel>
     );
   }
 }
