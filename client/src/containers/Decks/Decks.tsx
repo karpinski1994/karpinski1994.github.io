@@ -16,6 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import indigo from '@material-ui/core/colors/indigo';
 
 function Copyright() {
   return (
@@ -53,13 +54,16 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
   },
-  cardHeader: {
+  card: {
     backgroundColor:
       theme.palette.type === "light"
         ? theme.palette.grey[200]
         : theme.palette.grey[700],
   },
-  cardPricing: {
+  cardHeader: {
+    backgroundColor: indigo[300]
+  },
+  questionsQuantity: {
     display: "flex",
     justifyContent: "center",
     alignItems: "baseline",
@@ -126,7 +130,7 @@ export default function Decks() {
     <Container maxWidth="md" component="main">
       <Grid container spacing={5} alignItems="flex-end">
         {decks.map((deck) => (
-          // Enterprise card is full width at sm breakpoint
+          // Enterprise questionsQuantity is full width at sm breakpoint
           <Grid
             item
             key={deck.title}
@@ -134,7 +138,7 @@ export default function Decks() {
             sm={deck.title === "Enterprise" ? 12 : 6}
             md={4}
           >
-            <Card>
+            <Card className={classes.card}>
               <CardHeader
                 title={deck.title}
                 titleTypographyProps={{ align: "center", variant: "caption" }}
@@ -176,7 +180,7 @@ export default function Decks() {
                 className={classes.cardHeader}
               />
               <CardContent>
-                <div className={classes.cardPricing}>
+                <div className={classes.questionsQuantity}>
                   <Typography component="h2" variant="h6" color="textPrimary">
                     Questions: {deck.questionsQuantity}
                   </Typography>

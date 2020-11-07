@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Dashboard from "containers/Dashboard/index";
-import ProductsForm from "containers/Products/Form";
+import { Container } from '@material-ui/core';
 import styled from "styled-components";
 import Decks from 'containers/Decks/Decks.tsx'
-import { Container } from '@material-ui/core';
+import Stats from "containers/Stats/Stats";
+import Chart from "containers/Chart/Chart";
 const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
@@ -30,7 +31,7 @@ function App() {
       <BrowserRouter>
         <Route path="/" exact component={()=> <div>dzik</div> } />
         <Route path="/decks" exact component={Decks} />
-        <Route path="/stats" exact component={()=> <div>stats</div> } />
+        <Route path="/stats" exact component={Stats} />
       </BrowserRouter>
     </Dashboard>
 
