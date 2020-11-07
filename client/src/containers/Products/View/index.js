@@ -78,7 +78,7 @@ export class Products extends Component {
 
 const mapStateToProps = (state) => {
   console.log('state: ', state)
-  return { products: state.prds.productsList };
+  return { products: state.products.productsList };
 };
 
 export default connect(mapStateToProps, {

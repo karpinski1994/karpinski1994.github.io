@@ -137,7 +137,7 @@ class ProductForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { loading: state.prds.loading };
+  return { loading: state.products.loading };
 };
 
 export default connect(mapStateToProps, {

@@ -1,90 +1,18 @@
 import axios from "axios";
 
 import {
-  FETCH_PROD_STARTED,
-  FETCH_PROD_SUCCESS,
-  FETCH_PROD_FAILURE,
-  ADD_PROD_STARTED,
-  ADD_PROD_SUCCESS,
-  ADD_PROD_FAILURE,
-  REMOVE_PROD_STARTED,
-  REMOVE_PROD_SUCCESS,
-  REMOVE_PROD_FAILURE,
+  FETCH_PRODUCT_STARTED,
+  FETCH_PRODUCT_SUCCESS,
+  FETCH_PRODUCT_FAILURE,
+  ADD_PRODUCT_STARTED,
+  ADD_PRODUCT_SUCCESS,
+  ADD_PRODUCT_FAILURE,
+  REMOVE_PRODUCT_STARTED,
+  REMOVE_PRODUCT_SUCCESS,
+  REMOVE_PRODUCT_FAILURE,
 } from "./types";
 
 const API_URL = "http://localhost:5000/products";
-export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
-export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
-export const ADD_PRODUCT_SUCCESS = "ADD_PRODUCT_SUCCESS";
-export const REMOVE_PRODUCT_SUCCESS = "REMOVE_PRODUCT_SUCCESS";
-
-export const removeProduct = (productName) => ({
-  type: REMOVE_PRODUCT,
-  payload: productName,
-});
-
-export const fetchProductsSuccess = (products) => {
-console.log('products: ', products);
-  return {
-    type: FETCH_PRODUCTS_SUCCESS,
-    payload: [...products],
-  };
-};
-
-export const removeProductSuccess = (products) => {
-  return {
-    type: REMOVE_PRODUCT_SUCCESS,
-    payload: [...products],
-  };
-};
-
-export const addProductSuccess = (products) => {
-  return {
-    type: ADD_PRODUCT_SUCCESS,
-    payload: {
-      loaded: true,
-      error: false,
-      products,
-    },
-  };
-};
-
-export const fetchProducts = () => {
-  return function (dispatch) {
-    // TODO: Handle fetch products failures
-    return axios.get(API_URL).then(({ data }) => {
-    console.log('data: ', data);
-      dispatch(fetchProductsSuccess([...data.products]));
-    });
-  };
-};
-
-export const removeProductAction = (id) => {
-  return function (dispatch) {
-    return axios.delete(`${API_URL}/${id}`).then(({ data }) => {
-      dispatch(removeProductSuccess(data.products));
-    });
-  };
-};
-
-export const addProductAction = (product) => {
-  return function (dispatch) {
-    return axios({
-      method: "post",
-      url: API_URL,
-      data: JSON.stringify(product),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(({ data }) => {
-        dispatch(addProductSuccess(data.products));
-      })
-      .catch((err) => {
-        dispatch(addProdFailure(err.message));
-      });
-  };
-};
-
-// ----------------------------------------------------------------------
 
 export const addProd = (product) => {
   return (dispatch) => {
@@ -105,17 +33,17 @@ export const addProd = (product) => {
 };
 
 const addProdSuccess = (updatedProducts) => ({
-  type: ADD_PROD_SUCCESS,
+  type: ADD_PRODUCT_SUCCESS,
   payload: [...updatedProducts]
 });
 
 const addProdStarted = () => ({
-  type: ADD_PROD_STARTED,
+  type: ADD_PRODUCT_STARTED,
 });
 
 const addProdFailure = (error) => {
   return {
-    type: ADD_PROD_FAILURE,
+    type: ADD_PRODUCT_FAILURE,
     payload: {
       error,
     },
@@ -139,17 +67,17 @@ export const removeProd = (id) => {
 };
 
 const removeProdSuccess = (updatedProducts) => ({
-  type: REMOVE_PROD_SUCCESS,
+  type: REMOVE_PRODUCT_SUCCESS,
   payload: [...updatedProducts],
 });
 
 const removeProdStarted = () => ({
-  type: REMOVE_PROD_STARTED,
+  type: REMOVE_PRODUCT_STARTED,
 });
 
 const removeProdFailure = (error) => {
   return {
-    type: REMOVE_PROD_FAILURE,
+    type: REMOVE_PRODUCT_FAILURE,
     payload: {
       error,
     },
@@ -172,17 +100,17 @@ export const fetchProd = () => {
 };
 
 const fetchProdSuccess = (products) => ({
-  type: FETCH_PROD_SUCCESS,
+  type: FETCH_PRODUCT_SUCCESS,
   payload: [...products],
 });
 
 const fetchProdStarted = () => ({
-  type: FETCH_PROD_STARTED,
+  type: FETCH_PRODUCT_STARTED,
 });
 
 const fetchProdFailure = (error) => {
   return {
-    type: FETCH_PROD_FAILURE,
+    type: FETCH_PRODUCT_FAILURE,
     payload: {
       error,
     },
