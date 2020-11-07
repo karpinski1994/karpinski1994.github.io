@@ -3,7 +3,7 @@ import { mapValues, groupBy } from "lodash";
 import { connect } from "react-redux";
 import { fetchProd, removeProd } from "actions";
 import shortid from "shortid";
-// import Tabs from "containers/Products/Tabs";
+import Tabs from 'components/Tabs/TabButton'
 import { StandardTabs } from "components/Tabs/standard";
 import Product from "components/Product";
 import styled from 'styled-components'
@@ -67,16 +67,17 @@ export class Products extends Component {
     }
     return (
       <Panel>
-        {/* <Tabs products={products} removeProduct={removeProd} /> */}
-        {/* <StandardTabs items={items} /> */}
-        <Slider onChange={onFirstChange} label='Percentages' min={0} max={100} step={1} value={30} unit='%' preciseButons/>
-        <Slider onChange={onSecondChange} label='Units' min={0} max={1} step={0.1} value={0.5} unit='p' />
+        <Tabs products={products} removeProduct={removeProd} />
+        <StandardTabs items={items} />
+        {/* <Slider onChange={onFirstChange} label='Percentages' min={0} max={100} step={1} value={30} unit='%' preciseButons/>
+        <Slider onChange={onSecondChange} label='Units' min={0} max={1} step={0.1} value={0.5} unit='p' /> */}
       </Panel>
     );
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log('state: ', state)
   return { products: state.prds.productsList };
 };
 

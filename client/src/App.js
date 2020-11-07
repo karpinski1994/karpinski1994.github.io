@@ -28,39 +28,15 @@ const onSecondChange = () => {
 // TODO: Add better RWD
 function App() {
   return (
-    // <BrowserRouter>
-    //   <Wrapper>
-    //     <Nav />
-    //     <Content>
-    //       <Route path="/" exact component={ProductsView} />
-    //       {/* <Route path="/add" exact component={ProductsForm} /> */}
-    //       {/* <Route path="/tabs" exact component={Standard}/> */}
-    //     </Content>
-    //   </Wrapper>
-    // </BrowserRouter>
-    <Wrapper>
-      <Panel>
-        <Slider
-          onChange={onFirstChange}
-          label="Percentages"
-          min={0}
-          max={100}
-          step={1}
-          value={30}
-          unit="%"
-          preciseButons
-        />
-        <Slider
-          onChange={onSecondChange}
-          label="Units"
-          min={0}
-          max={1}
-          step={0.1}
-          value={0.5}
-          unit="p"
-        />
-      </Panel>
-    </Wrapper>
+    <BrowserRouter>
+      <Wrapper>
+        <Nav />
+        <Content>
+          <Route path="/" exact component={ProductsView} />
+          <Route path="/add" exact component={ProductsForm} />
+        </Content>
+      </Wrapper>
+    </BrowserRouter>
   );
 }
 

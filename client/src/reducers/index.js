@@ -42,6 +42,7 @@ const initialState = {
 };
 
 function prodsReducer(state = initialState, action) {
+console.log('prodsReducer state: ', state);
   switch (action.type) {
     case FETCH_PROD_STARTED:
       return {

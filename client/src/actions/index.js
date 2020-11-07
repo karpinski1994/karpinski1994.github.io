@@ -12,7 +12,7 @@ import {
   REMOVE_PROD_FAILURE,
 } from "./types";
 
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = "http://localhost:5000/products";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
 export const ADD_PRODUCT_SUCCESS = "ADD_PRODUCT_SUCCESS";
@@ -24,6 +24,7 @@ export const removeProduct = (productName) => ({
 });
 
 export const fetchProductsSuccess = (products) => {
+console.log('products: ', products);
   return {
     type: FETCH_PRODUCTS_SUCCESS,
     payload: [...products],
@@ -52,6 +53,7 @@ export const fetchProducts = () => {
   return function (dispatch) {
     // TODO: Handle fetch products failures
     return axios.get(API_URL).then(({ data }) => {
+    console.log('data: ', data);
       dispatch(fetchProductsSuccess([...data.products]));
     });
   };
@@ -161,7 +163,7 @@ export const fetchProd = () => {
     dispatch(fetchProdStarted());
     axios.get(API_URL)
         .then(({ data }) => {
-          dispatch(fetchProdSuccess(data.products));
+          dispatch(fetchProdSuccess(data));
         })
         .catch((err) => {
           dispatch(fetchProdFailure(err.message));
