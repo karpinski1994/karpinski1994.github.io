@@ -1,11 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import ProductsView from "containers/Products/View";
+import Dashboard from "containers/Dashboard/index";
 import ProductsForm from "containers/Products/Form";
-import Nav from "components/Nav";
 import styled from "styled-components";
-import { Panel } from "containers/Products/View";
-import Slider from "components/Slider";
+import Decks from 'containers/Decks/Decks.tsx'
 import { Container } from '@material-ui/core';
 const Wrapper = styled.div`
   height: 100vh;
@@ -28,16 +26,14 @@ const onSecondChange = () => {
 // TODO: Add better RWD
 function App() {
   return (
-    <BrowserRouter>
-      <Container>
+    <Dashboard>
+      <BrowserRouter>
+        <Route path="/" exact component={()=> <div>dzik</div> } />
+        <Route path="/decks" exact component={Decks} />
+        <Route path="/stats" exact component={()=> <div>stats</div> } />
+      </BrowserRouter>
+    </Dashboard>
 
-        <Nav />
-        <Content>
-          <Route path="/" exact component={ProductsView} />
-          <Route path="/add" exact component={ProductsForm} />
-        </Content>
-      </Container>
-    </BrowserRouter>
   );
 }
 

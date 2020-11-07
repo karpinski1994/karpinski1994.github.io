@@ -45,7 +45,7 @@ app.use((error, req, res, next) => {
 // TODO: Business logic should be framework agnostic
 mongoose
   .connect(
-        `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@products-management.1nxya.mongodb.net/products-management?retryWrites=true&w=majority`,
+        ` mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@decks.1nxya.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
         { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
