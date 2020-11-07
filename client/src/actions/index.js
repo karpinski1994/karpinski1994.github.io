@@ -24,9 +24,11 @@ export const addProd = (product) => {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
+      console.log('res: ', res);
         dispatch(addProdSuccess(res.data));
       })
       .catch((err) => {
+      console.log('err: ', err);
         dispatch(addProdFailure(err.message));
       });
   };

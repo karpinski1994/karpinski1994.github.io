@@ -1,7 +1,8 @@
 
-import requiredParam from '../helpers/required-param'
+const requiredParam = require('../helpers/required-param');
 const InvalidPropertyError = require('../helpers/errors/errors')
-export default function makeProduct (
+
+function makeProduct (
   productData = requiredParam('productData')
 ) {
   const validProduct = validate(productData)
@@ -9,15 +10,15 @@ export default function makeProduct (
   return Object.freeze(normalProduct)
 
   function validate ({
-    title = requiredParam('title'),
+    name = requiredParam('name'),
     description = requiredParam('description'),
     category = requiredParam('category'),
     ...otherData
   } = {}) {
-    validateText('title', title)
+    validateText('name', name)
     validateText('description', description)
     validateText('category', category)
-    return { title, description, category, ...otherData }
+    return { name, description, category, ...otherData }
   }
 
   function validateText (label, name) {
@@ -28,12 +29,14 @@ export default function makeProduct (
     }
   }
   
-  function normalize ({ category, title, description, ...otherData }) {
+  function normalize ({ name, description, category, ...otherData }) {
     return {
       ...otherData,
-      title,
+      name,
       description,
       category
     }
   }
 }
+
+module.exports = makeProduct;

@@ -19,7 +19,7 @@ class ProductForm extends Component {
       name: {
         config: {
           type: "text",
-          placeholder: "Name",
+          placeholder: "Title",
         },
         value: "",
         validation: {

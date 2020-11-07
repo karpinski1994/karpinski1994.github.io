@@ -4,24 +4,13 @@ const mongoose = require("mongoose");
 const adaptRequest = require("./helpers/adapt-request");
 const handleProductsRequest = require("./products/endpoint-handler");
 const HttpError = require("./models/http-error");
-
+const cors = require('cors')
 const dotenv = require("dotenv")
 dotenv.config()
 const app = express();
+app.use(cors())
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Request-With, Content-Type, Accept"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-  );
-  next();
-});
 
 app.all('/products', productsController)
 app.get('/products/:id', productsController)
@@ -30,10 +19,14 @@ function productsController (req, res) {
   const httpRequest = adaptRequest(req)
   handleProductsRequest(httpRequest)
     .then(({ headers, statusCode, data }) =>
-      res
+    {
+      console.log('app data: ', data);
+      console.log('app headers: ', headers);
+        
+        res
         .set(headers)
         .status(statusCode)
-        .send(data)
+        .send(data)}
     )
     .catch(e => res.status(500).end())
 }

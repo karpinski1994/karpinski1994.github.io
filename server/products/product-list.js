@@ -29,23 +29,9 @@ function makeProductList(Product) {
     return products;
   };
 
-  async function add(req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next(
-        new HttpError(
-          "Invalid data passed, please check your data and try again.",
-          422
-        )
-      );
-    }
+  async function add(productData) {
+     const newProduct = new Product(productData);
     let updatedProducts = [];
-    const { name, category, description } = req.body;
-    const newProduct = new Product({
-      name,
-      category,
-      description,
-    });
     try {
       const sess = await mongoose.startSession();
       sess.startTransaction();
@@ -53,14 +39,13 @@ function makeProductList(Product) {
       updatedProducts = await Product.find();
       await sess.commitTransaction();
     } catch (err) {
-      const error = new HttpError(
+       return new HttpError(
         "Creating product failed, please try again.",
         500
       );
-      return next(error);
     }
 
-    res.status(201).json({ products: updatedProducts });
+    return updatedProducts;
   };
 
   async function remove(req, res, next) {

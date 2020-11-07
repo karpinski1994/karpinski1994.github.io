@@ -1,7 +1,8 @@
 const HttpError = require("../models/http-error");
-
+const makeProduct = require("./product")
 function makeProductsEndpointHandler ({ productList }) {
   return async function handle (httpRequest) {
+  console.log('makeProductsEndpointHandler httpRequest: ', httpRequest);
     switch (httpRequest.method) {
       case 'POST':
         return postProduct(httpRequest)
@@ -19,8 +20,9 @@ function makeProductsEndpointHandler ({ productList }) {
     const { id } = httpRequest.pathParams || {}
 
     const result = id
-      ? await productList.findById({ productId: id })
-      : await productList.getAll()
+    ? await productList.findById({ productId: id })
+    : await productList.getAll()
+    console.log('result: ', result);
     return {
       headers: {
         'Content-Type': 'application/json'
@@ -33,6 +35,7 @@ function makeProductsEndpointHandler ({ productList }) {
   async function postProduct (httpRequest) {
     let productData = httpRequest.body
     if (!productData) {
+      console.log('!productData')
       return new HttpError(
           'Bad request. No POST body.',
           400
@@ -43,6 +46,7 @@ function makeProductsEndpointHandler ({ productList }) {
       try {
         productData = JSON.parse(productData)
       } catch {
+        console.log('productData.json')
         return new HttpError(
           'Bad request. POST body must be valid JSON.',
           400
@@ -52,6 +56,7 @@ function makeProductsEndpointHandler ({ productList }) {
 
     try {
       const product = makeProduct(productData)
+      console.log('after make product: ', product);
       const result = await productList.add(product)
       return {
         headers: {
@@ -61,6 +66,7 @@ function makeProductsEndpointHandler ({ productList }) {
         data: JSON.stringify(result)
       }
     } catch (e) {
+    console.log('e: ', e);
       return new HttpError(
         'Server error',
         500
