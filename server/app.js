@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const productsRoutes = require("./routes/products-routes");
+const adaptRequest = require("./helpers/adapt-request");
+const handleProductsRequest = require("./products/endpoint-handler");
 const HttpError = require("./models/http-error");
 
 const dotenv = require("dotenv")
@@ -22,7 +23,20 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/products", productsRoutes);
+app.all('/products', productsController)
+app.get('/products/:id', productsController)
+
+function productsController (req, res) {
+  const httpRequest = adaptRequest(req)
+  handleProductsRequest(httpRequest)
+    .then(({ headers, statusCode, data }) =>
+      res
+        .set(headers)
+        .status(statusCode)
+        .send(data)
+    )
+    .catch(e => res.status(500).end())
+}
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
