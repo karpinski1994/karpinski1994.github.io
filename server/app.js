@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+
 const adaptRequest = require("./helpers/adapt-request");
 const handleProductsRequest = require("./products/endpoint-handler");
 const HttpError = require("./models/http-error");
@@ -20,9 +21,6 @@ function productsController (req, res) {
   handleProductsRequest(httpRequest)
     .then(({ headers, statusCode, data }) =>
     {
-      console.log('app data: ', data);
-      console.log('app headers: ', headers);
-        
         res
         .set(headers)
         .status(statusCode)
@@ -47,7 +45,8 @@ app.use((error, req, res, next) => {
 // TODO: Business logic should be framework agnostic
 mongoose
   .connect(
-        `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@products-management.1nxya.mongodb.net/products-management?retryWrites=true&w=majority`
+        `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@products-management.1nxya.mongodb.net/products-management?retryWrites=true&w=majority`,
+        { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
     app.listen(5000);

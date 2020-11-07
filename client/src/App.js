@@ -6,7 +6,7 @@ import Nav from "components/Nav";
 import styled from "styled-components";
 import { Panel } from "containers/Products/View";
 import Slider from "components/Slider";
-
+import { Container } from '@material-ui/core';
 const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
@@ -29,13 +29,14 @@ const onSecondChange = () => {
 function App() {
   return (
     <BrowserRouter>
-      <Wrapper>
+      <Container>
+
         <Nav />
         <Content>
           <Route path="/" exact component={ProductsView} />
           <Route path="/add" exact component={ProductsForm} />
         </Content>
-      </Wrapper>
+      </Container>
     </BrowserRouter>
   );
 }
