@@ -36,7 +36,7 @@ class Product extends Component {
   };
 
   handleOkClick = (id) => {
-    this.props.removeProduct(id);
+    this.props.removeDeckuct(id);
     this.toggleRemovalModal();
   };
 

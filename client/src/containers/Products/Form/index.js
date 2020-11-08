@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { addProd } from "actions";
+import { createDeck } from "actions";
 import { Redirect } from "react-router-dom";
 import { FormWrapper } from "./style";
 import Input from "components/Input";
@@ -70,7 +70,7 @@ class ProductForm extends Component {
       for (let fieldId in this.state.productForm) {
         formData[fieldId] = this.state.productForm[fieldId].value.trim();
       }
-      this.props.addProd(formData);
+      this.props.createDeck(formData);
       // TODO: Handle clearing form on successful save in better way
     }
   };
@@ -141,5 +141,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  addProd
+  createDeck
 })(ProductForm);

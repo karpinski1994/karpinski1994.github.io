@@ -78,5 +78,5 @@ function makeProductList(Product) {
   };
 }
 // exports.getProducts = getProducts;
-// exports.addProduct = addProduct;
+// exports.createDeckuct = createDeckuct;
 module.exports = makeProductList;

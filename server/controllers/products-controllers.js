@@ -27,7 +27,7 @@ const getProducts = async (req, res, next) => {
   res.json({ products });
 };
 
-const addProduct = async (req, res, next) => {
+const createDeckuct = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
@@ -61,7 +61,7 @@ const addProduct = async (req, res, next) => {
   res.status(201).json({ products: updatedProducts });
 };
 
-const removeProduct = async (req, res, next) => {
+const removeDeckuct = async (req, res, next) => {
   const { pid } = req.params;
   let product;
   let newProducts = [];
@@ -91,5 +91,5 @@ const removeProduct = async (req, res, next) => {
 };
 
 exports.getProducts = getProducts;
-exports.addProduct = addProduct;
-exports.removeProduct = removeProduct;
+exports.createDeckuct = createDeckuct;
+exports.removeDeckuct = removeDeckuct;

@@ -1,22 +1,23 @@
 import axios from "axios";
-
+// TODO: Separate deck and deckslist
 import {
-  FETCH_PRODUCT_STARTED,
-  FETCH_PRODUCT_SUCCESS,
-  FETCH_PRODUCT_FAILURE,
-  ADD_PRODUCT_STARTED,
-  ADD_PRODUCT_SUCCESS,
-  ADD_PRODUCT_FAILURE,
-  REMOVE_PRODUCT_STARTED,
-  REMOVE_PRODUCT_SUCCESS,
-  REMOVE_PRODUCT_FAILURE,
+  FETCH_DECKS_STARTED,
+  FETCH_DECKS_SUCCESS,
+  FETCH_DECKS_FAILURE,
+  GET_DECK,
+  ADD_DECK_STARTED,
+  ADD_DECK_SUCCESS,
+  ADD_DECK_FAILURE,
+  REMOVE_DECK_STARTED,
+  REMOVE_DECK_SUCCESS,
+  REMOVE_DECK_FAILURE,
 } from "./types";
 
 const API_URL = "http://localhost:5000/products";
 
-export const addProd = (product) => {
+export const createDeck = (product) => {
   return (dispatch) => {
-    dispatch(addProdStarted());
+    dispatch(createDeckStarted());
     axios({
       method: "post",
       url: API_URL,
@@ -24,28 +25,28 @@ export const addProd = (product) => {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
-      console.log('res: ', res);
-        dispatch(addProdSuccess(res.data));
+        console.log('res: ', res);
+        dispatch(createDeckSuccess(res.data));
       })
       .catch((err) => {
-      console.log('err: ', err);
-        dispatch(addProdFailure(err.message));
+        console.log('err: ', err);
+        dispatch(createDeckFailure(err.message));
       });
   };
 };
 
-const addProdSuccess = (updatedProducts) => ({
-  type: ADD_PRODUCT_SUCCESS,
+const createDeckSuccess = (updatedProducts) => ({
+  type: ADD_DECK_SUCCESS,
   payload: [...updatedProducts]
 });
 
-const addProdStarted = () => ({
-  type: ADD_PRODUCT_STARTED,
+const createDeckStarted = () => ({
+  type: ADD_DECK_STARTED,
 });
 
-const addProdFailure = (error) => {
+const createDeckFailure = (error) => {
   return {
-    type: ADD_PRODUCT_FAILURE,
+    type: ADD_DECK_FAILURE,
     payload: {
       error,
     },
@@ -53,33 +54,33 @@ const addProdFailure = (error) => {
 };
 
 //
-export const removeProd = (id) => {
+export const removeDeck = (id) => {
 
   return (dispatch) => {
-    dispatch(removeProdStarted());
+    dispatch(removeDeckStarted());
     axios
       .delete(`${API_URL}/${id}`)
       .then(({ data }) => {
-        dispatch(removeProdSuccess(data.products));
+        dispatch(removeDeckSuccess(data.products));
       })
       .catch((err) => {
-        dispatch(removeProdFailure(err.message));
+        dispatch(removeDeckFailure(err.message));
       });
   };
 };
 
-const removeProdSuccess = (updatedProducts) => ({
-  type: REMOVE_PRODUCT_SUCCESS,
+const removeDeckSuccess = (updatedProducts) => ({
+  type: REMOVE_DECK_SUCCESS,
   payload: [...updatedProducts],
 });
 
-const removeProdStarted = () => ({
-  type: REMOVE_PRODUCT_STARTED,
+const removeDeckStarted = () => ({
+  type: REMOVE_DECK_STARTED,
 });
 
-const removeProdFailure = (error) => {
+const removeDeckFailure = (error) => {
   return {
-    type: REMOVE_PRODUCT_FAILURE,
+    type: REMOVE_DECK_FAILURE,
     payload: {
       error,
     },
@@ -88,31 +89,38 @@ const removeProdFailure = (error) => {
 //
 
 //
-export const fetchProd = () => {
+export const fetchDecks = () => {
   return function (dispatch) {
-    dispatch(fetchProdStarted());
+    dispatch(fetchDecksStarted());
     axios.get(API_URL)
-        .then(({ data }) => {
-          dispatch(fetchProdSuccess(data));
-        })
-        .catch((err) => {
-          dispatch(fetchProdFailure(err.message));
-        });
+      .then(({ data }) => {
+        dispatch(fetchDecksSuccess(data));
+      })
+      .catch((err) => {
+        dispatch(fetchDecksFailure(err.message));
+      });
   }
 };
 
-const fetchProdSuccess = (products) => ({
-  type: FETCH_PRODUCT_SUCCESS,
+export const getDeck = (id) => {
+  return {
+    type: GET_DECK,
+    payload: id,
+  }
+};
+
+const fetchDecksSuccess = (products) => ({
+  type: FETCH_DECKS_SUCCESS,
   payload: [...products],
 });
 
-const fetchProdStarted = () => ({
-  type: FETCH_PRODUCT_STARTED,
+const fetchDecksStarted = () => ({
+  type: FETCH_DECKS_STARTED,
 });
 
-const fetchProdFailure = (error) => {
+const fetchDecksFailure = (error) => {
   return {
-    type: FETCH_PRODUCT_FAILURE,
+    type: FETCH_DECKS_FAILURE,
     payload: {
       error,
     },

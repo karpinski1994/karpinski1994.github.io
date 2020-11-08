@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { mapValues, groupBy } from "lodash";
 import { connect } from "react-redux";
-import { fetchProd, removeProd } from "actions";
+import { fetchDecks, removeDeck } from "actions";
 import shortid from "shortid";
 import Tabs from 'components/Tabs/TabButton'
 import { StandardTabs } from "components/Tabs/standard";
@@ -19,7 +19,7 @@ export const Panel = styled.div`
 // TODO: Here should be the whole logic connected to products and passed to generic tabs
 export class Products extends Component {
   componentDidMount() {
-    this.props.fetchProd();
+    this.props.fetchDecks();
   }
 
   getCategories = (products) => {
@@ -47,7 +47,7 @@ export class Products extends Component {
       <Product
         id={p._id}
         key={shortid.generate()}
-        removeProduct={this.props.removeProd}
+        removeDeckuct={this.props.removeDeck}
         {...p}
       />
     ));
@@ -67,7 +67,7 @@ export class Products extends Component {
     }
     return (
       <Panel>
-        <Tabs products={products} removeProduct={removeProd} />
+        <Tabs products={products} removeDeckuct={removeDeck} />
         <StandardTabs items={items} />
         {/* <Slider onChange={onFirstChange} label='Percentages' min={0} max={100} step={1} value={30} unit='%' preciseButons/>
         <Slider onChange={onSecondChange} label='Units' min={0} max={1} step={0.1} value={0.5} unit='p' /> */}
@@ -82,6 +82,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  fetchProd,
-  removeProd,
+  fetchDecks,
+  removeDeck,
 })(Products);

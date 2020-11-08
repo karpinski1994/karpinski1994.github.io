@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -20,6 +21,8 @@ import Container from "@material-ui/core/Container";
 import indigo from "@material-ui/core/colors/indigo";
 import { Box } from "@material-ui/core";
 import {useHistory} from 'react-router-dom'
+import { fetchDecks, removeDeck } from "actions";
+import { decksSelector } from 'reducers/index'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -114,16 +117,19 @@ const decks = [
 const ITEM_HEIGHT = 48;
 
 const options = [];
-export default function Decks() {
+function Decks(props) {
   const classes = useStyles();
   const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedDeckId, setSelectedDeckId] = React.useState<null | string>(null);
   const open = Boolean(anchorEl);
-  React.useEffect(() => {
-    console.log('selectedDeckId: ', selectedDeckId)
-  }, [anchorEl, selectedDeckId]);
+  useEffect(() => {
+    props.fetchDecks();
+  }, [])
+   useEffect(() => {
+     console.log('props.decks: ', props.decks);
+  }, [props.decks])
   const handleMoreVertClick = (event: React.MouseEvent<HTMLElement>, id: string) => {
     // event.stopPropagation();
     setSelectedDeckId(id);
@@ -139,6 +145,7 @@ export default function Decks() {
     history.push(`/decks/${selectedDeckId}`);
   }
 
+  const decks = props?.decks;
   return (
     <Container maxWidth="md">
       <Box mb={5}>
@@ -235,3 +242,13 @@ export default function Decks() {
     </Container>
   );
 }
+
+
+const mapStateToProps = (state: any) => {  
+console.log('state: ', state);
+  return { decks: decksSelector(state) };
+};
+
+export default connect(mapStateToProps, {
+  fetchDecks,
+})(Decks);
