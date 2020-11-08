@@ -35,7 +35,7 @@ function Copyright() {
   );
 }
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -175,7 +175,6 @@ export default function Dashboard(props: any) {
           </div>
           <Divider />
           <List>{navList}</List>
-          <Divider />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />

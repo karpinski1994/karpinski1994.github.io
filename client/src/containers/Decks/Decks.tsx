@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -16,8 +17,9 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import indigo from '@material-ui/core/colors/indigo';
-
+import indigo from "@material-ui/core/colors/indigo";
+import { Box } from "@material-ui/core";
+import {useHistory} from 'react-router-dom'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -59,9 +61,10 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === "light"
         ? theme.palette.grey[200]
         : theme.palette.grey[700],
+    margin: 10,
   },
   cardHeader: {
-    backgroundColor: indigo[300]
+    backgroundColor: indigo[300],
   },
   questionsQuantity: {
     display: "flex",
@@ -113,29 +116,50 @@ const ITEM_HEIGHT = 48;
 const options = [];
 export default function Decks() {
   const classes = useStyles();
+  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selectedDeckId, setSelectedDeckId] = React.useState<null | string>(null);
   const open = Boolean(anchorEl);
   React.useEffect(() => {
-    console.log("useffect anchorEl: ", anchorEl);
-  }, [anchorEl]);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    console.log('selectedDeckId: ', selectedDeckId)
+  }, [anchorEl, selectedDeckId]);
+  const handleMoreVertClick = (event: React.MouseEvent<HTMLElement>, id: string) => {
+    // event.stopPropagation();
+    setSelectedDeckId(id);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
+  const handleRedirect = () => {
+    history.push(`/decks/${selectedDeckId}`);
+  }
+
   return (
-    <Container maxWidth="md" component="main">
-      <Grid container spacing={5} alignItems="flex-end">
+    <Container maxWidth="md">
+      <Box mb={5}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            console.log("redirect to adding");
+          }}
+        >
+          <AddBoxIcon /> Add deck
+        </Button>
+      </Box>
+      <Grid container alignItems="flex-end">
         {decks.map((deck) => (
           // Enterprise questionsQuantity is full width at sm breakpoint
           <Grid
             item
             key={deck.title}
             xs={12}
-            sm={deck.title === "Enterprise" ? 12 : 6}
+            sm={6}
             md={4}
           >
             <Card className={classes.card}>
@@ -143,17 +167,18 @@ export default function Decks() {
                 title={deck.title}
                 titleTypographyProps={{ align: "center", variant: "caption" }}
                 action={
-                  <div>
+                  <>
                     <IconButton
+                      id={deck.id}
                       aria-label="more"
-                      aria-controls="long-menu"
+                      aria-controls={deck.id}
                       aria-haspopup="true"
-                      onClick={handleClick}
+                      onClick={(e) => handleMoreVertClick(e, deck.id)}
                     >
                       <MoreVertIcon />
                     </IconButton>
                     <Menu
-                      id="long-menu"
+                      id={deck.id}
                       anchorEl={anchorEl}
                       keepMounted
                       open={open}
@@ -165,17 +190,17 @@ export default function Decks() {
                         },
                       }}
                     >
-                      <MenuItem onClick={handleClose}>
+                      <MenuItem onClick={handleRedirect}>
                         <ExitToAppIcon /> Browse
                       </MenuItem>
-                      <MenuItem onClick={handleClose}>
+                      <MenuItem onClick={() => console.log('settings')}>
                         <SettingsIcon /> Settings
                       </MenuItem>
-                      <MenuItem onClick={handleClose}>
+                      <MenuItem onClick={() => console.log('remove')}>
                         <DeleteIcon /> Remove
                       </MenuItem>
                     </Menu>
-                  </div>
+                  </>
                 }
                 className={classes.cardHeader}
               />
