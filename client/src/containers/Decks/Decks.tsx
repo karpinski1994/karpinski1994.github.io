@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
+import {Button} from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
@@ -25,6 +25,7 @@ import { fetchDecks, removeDeck } from "actions";
 import { decksSelector } from 'reducers/index'
 
 import AlertDialog from 'components/Dialog/Dialog'
+import { DeckModel } from "models/deck";
 
 function Copyright() {
   return (
@@ -118,7 +119,7 @@ const decks = [
 const ITEM_HEIGHT = 48;
 
 const options = [];
-function Decks(props) {
+function Decks(props: any) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -173,7 +174,7 @@ function Decks(props) {
         </Button>
       </Box>
       <Grid container alignItems="flex-end">
-        {decks.map((deck) => (
+        {decks.map((deck: DeckModel) => (
           // Enterprise questionsQuantity is full width at sm breakpoint
           <Grid
             item
@@ -236,8 +237,8 @@ function Decks(props) {
                 </p>
               </CardContent>
               <CardActions>
-                <Button fullWidth variant={deck.buttonVariant} color="primary">
-                  {deck.buttonText}
+                <Button fullWidth variant='contained' color="primary">
+                  Some button text
                 </Button>
               </CardActions>
             </Card>

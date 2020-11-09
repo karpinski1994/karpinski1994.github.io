@@ -6,13 +6,13 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
-export default function QuestionForm(props) {
+export default function QuestionForm(props: any) {
   return (
     <Formik
       initialValues={{ question: "", answer: "" }}
       validate={(values) => {
         const minLength = 3;
-        const errors = {};
+        const errors: any = {};
 
         if (values.question.length < minLength) {
           errors.question = "Question is required.";

@@ -11,12 +11,19 @@ import { decksSelector } from "reducers/index";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Questions from 'containers/Questions/Questions';
+import {DeckModel} from 'models/deck';
+interface ParamTypes {
+  id: string
+}
 
-function Deck(props) {
-  const [deck, setDeck] = useState({});
-  let { id } = useParams();
+
+// TODO: Declare props
+function Deck(props: any) {
+  const [deck, setDeck] = useState<DeckModel>({id: '', title: '', description: '', questions: []});
+  const { id } = useParams<ParamTypes>();
+
   useEffect(() => {
-    const foundDeck = props?.decks.find((d) => d.id === id);
+    const foundDeck = props?.decks.find((d: {id: string, title: string, description: string, questions: string[]}) => d.id === id);
     setDeck(foundDeck)
   }, [props.decks]);
   return (

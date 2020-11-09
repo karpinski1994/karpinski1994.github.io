@@ -6,9 +6,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {DeckModel} from 'models/deck';
 
-
-function preventDefault(event) {
+function preventDefault(event: { preventDefault: () => void; }) {
   event.preventDefault();
 }
 
@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
 }));
-
-export default function Questions({questions = []}) {
+// TODO: Change type
+export default function Questions({questions}: any) {
   const classes = useStyles();
   return (
     <>
@@ -33,7 +33,7 @@ export default function Questions({questions = []}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {questions.map((q) => (
+          {questions.map((q: any) => (
             <TableRow key={q.id}>
               <TableCell>{q.question}</TableCell>
               <TableCell>{q.answer}</TableCell>

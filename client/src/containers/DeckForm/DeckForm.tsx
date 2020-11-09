@@ -9,13 +9,13 @@ import { connect } from "react-redux";
 import { createDeck } from "actions";
 // TODO: Extract logic above and make form reusable
 // TODO: Declare fields in an array and render them dynamically
-export function DeckForm(props) {
+export function DeckForm(props: any) {
   return (
     <Formik
       initialValues={{ title: "", description: "" }}
       validate={(values) => {
         const minLength = 3;
-        const errors = {};
+        const errors: any = {};
         // TODO: Add required validation - but not necessary if length
         if (values.title.length < minLength) {
           errors.title = `Title length must be longer than ${minLength}.`;
