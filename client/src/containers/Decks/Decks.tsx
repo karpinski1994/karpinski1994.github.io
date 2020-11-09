@@ -138,7 +138,7 @@ function Decks(props: any) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleCardMenuClose = () => {
     setAnchorEl(null);
   };
 
@@ -154,6 +154,7 @@ function Decks(props: any) {
   };
 
   const handleDialogClose = () => {
+    handleCardMenuClose();
     setDialogOpen(false);
   };
 
@@ -203,7 +204,7 @@ function Decks(props: any) {
                       anchorEl={anchorEl}
                       keepMounted
                       open={open}
-                      onClose={handleClose}
+                      onClose={handleCardMenuClose}
                       PaperProps={{
                         style: {
                           maxHeight: ITEM_HEIGHT * 4.5,
