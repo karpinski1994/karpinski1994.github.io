@@ -15,7 +15,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import indigo from "@material-ui/core/colors/indigo";
@@ -30,9 +30,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -169,7 +167,9 @@ function Decks(props) {
             console.log("redirect to adding");
           }}
         >
+          <Link to="/add">
           <AddBoxIcon /> Add deck
+          </Link>
         </Button>
       </Box>
       <Grid container alignItems="flex-end">

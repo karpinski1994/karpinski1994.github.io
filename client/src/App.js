@@ -7,6 +7,7 @@ import Decks from 'containers/Decks/Decks.tsx'
 import Stats from "containers/Stats/Stats";
 import Chart from "containers/Chart/Chart";
 import Deck from "containers/Deck/Deck";
+import { DeckForm } from "containers/DeckForm/DeckForm";
 const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
@@ -31,6 +32,7 @@ function App() {
     <Dashboard>
       <BrowserRouter>
         <Route path="/" exact component={()=> <div>dzik</div> } />
+        <Route path="/add" exact component={DeckForm} />
         <Route path="/decks" exact component={Decks} />
         <Route path="/decks/:id" exact component={Deck} />
         <Route path="/stats" exact component={Stats} />
