@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
-import { navList } from 'components/Nav/navList.tsx';
+import { navList } from 'components/Nav/navList';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 function Copyright() {
