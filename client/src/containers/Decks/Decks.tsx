@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -23,6 +23,9 @@ import { Box } from "@material-ui/core";
 import {useHistory} from 'react-router-dom'
 import { fetchDecks, removeDeck } from "actions";
 import { decksSelector } from 'reducers/index'
+
+import AlertDialog from 'components/Dialog/Dialog'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -144,6 +147,16 @@ function Decks(props) {
   const handleRedirect = () => {
     history.push(`/decks/${selectedDeckId}`);
   }
+// DIALOG
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
 
   const decks = props?.decks;
   return (
@@ -203,7 +216,8 @@ function Decks(props) {
                       <MenuItem onClick={() => console.log('settings')}>
                         <SettingsIcon /> Settings
                       </MenuItem>
-                      <MenuItem onClick={() => console.log('remove')}>
+                      {/* TODO: Handle async removal with error handling */}
+                      <MenuItem onClick={handleDialogOpen}>
                         <DeleteIcon /> Remove
                       </MenuItem>
                     </Menu>
@@ -217,18 +231,9 @@ function Decks(props) {
                     Questions: {deck.questionsQuantity}
                   </Typography>
                 </div>
-                <ul>
-                  {deck.description.map((line) => (
-                    <Typography
-                      component="li"
-                      variant="subtitle1"
-                      align="center"
-                      key={line}
-                    >
-                      {line}
-                    </Typography>
-                  ))}
-                </ul>
+                <p>
+                  {deck.description}
+                </p>
               </CardContent>
               <CardActions>
                 <Button fullWidth variant={deck.buttonVariant} color="primary">
@@ -239,6 +244,7 @@ function Decks(props) {
           </Grid>
         ))}
       </Grid>
+      <AlertDialog isOpen={isDialogOpen} handleClose={handleDialogClose} title='Remove deck' text='Are you sure you want to remove this deck?'/>
     </Container>
   );
 }

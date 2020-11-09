@@ -10,9 +10,10 @@ import { decksSelector } from "reducers/index";
 
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import Questions from 'containers/Questions/Questions';
 
 function Deck(props) {
-  const [currentDeck, setDeck] = useState({});
+  const [deck, setDeck] = useState({});
   let { id } = useParams();
   useEffect(() => {
     const foundDeck = props?.decks.find((d) => d.id === id);
@@ -23,14 +24,15 @@ function Deck(props) {
       <Grid item xs={12} md={8} lg={9}>
         <Paper>
           <Typography component="p" variant="h4">
-            {currentDeck?.title}
+            {deck?.title}
           </Typography>
           <Typography color="textSecondary">
-            {currentDeck?.description}
+            {deck?.description}
           </Typography>
           <Typography color="textSecondary">
-            {currentDeck?.description}
+            {deck?.description}
           </Typography>
+          <Questions questions={deck?.questions} />
         </Paper>
       </Grid>
     </Container>
