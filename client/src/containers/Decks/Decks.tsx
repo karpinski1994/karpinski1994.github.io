@@ -238,7 +238,7 @@ function Decks(props: any) {
               </CardContent>
               <CardActions>
                 <Button fullWidth variant='contained' color="primary">
-                  Some button text
+                  Start
                 </Button>
               </CardActions>
             </Card>
