@@ -154,6 +154,7 @@ function Decks(props: any) {
   };
 
   const handleDialogClose = () => {
+    // TODO: Can be useless when removed a card
     handleCardMenuClose();
     setDialogOpen(false);
   };
