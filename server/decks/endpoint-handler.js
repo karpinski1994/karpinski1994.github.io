@@ -1,8 +1,8 @@
-const makeProductList = require( './product-list')
-const makeProductsEndpointHandler = require( './products-endpoint')
-const Product = require("../models/product");
+const makeDeckList = require( './deck-list')
+const makeProductsEndpointHandler = require( './decks-endpoint')
+const Deck = require("../models/deck");
 
-const productList = makeProductList(Product)
-const productsEndpointHandler = makeProductsEndpointHandler({ productList })
+const deckList = makeDeckList(Deck)
+const decksEndpointHandler = makeProductsEndpointHandler({ deckList })
 
-module.exports = productsEndpointHandler
+module.exports = decksEndpointHandler

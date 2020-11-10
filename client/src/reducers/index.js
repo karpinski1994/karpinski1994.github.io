@@ -18,74 +18,7 @@ import {
 
 const initialState = {
   loading: false,
-  decks: [
-    {
-      id: "1",
-      title: "Javascript",
-      questionsQuantity: "30",
-      description: 'Javascript descbalbalalsl',
-      buttonText: "Start",
-      buttonVariant: "contained",
-      questions: [
-        {
-          id: '1',
-          question: "Where ES6 was released?",
-          answer: "2015?",
-          dateCreated: '20-08-20'
-        },
-        {
-          id: '2',
-          question: "What map does?",
-          answer: "Lets us to overwrite array elements",
-          dateCreated: '20-08-20'
-        },
-      ],
-    },
-    {
-      id: "2",
-      title: "React & Redux",
-      questionsQuantity: "30",
-      description: 'Redux and REact questions something something somehow',
-      buttonText: "Start",
-      buttonVariant: "contained",
-      questions: [
-        {
-          id: '1',
-          question: "What is the first lifecycle of the compoennt?",
-          answer: "constructor",
-          dateCreated: '20-08-20'
-        },
-        {
-          id: '2',
-          question: "What every component should return?",
-          answer: "At least one JSX element",
-          dateCreated: '20-08-20'
-        },
-      ],
-    },
-    {
-      id: "3",
-      title: "Algos and DS",
-      questionsQuantity: "30",
-      description: 'algos desc balbalbla',
-      buttonText: "Start",
-      buttonVariant: "contained",
-      questions: [
-        {
-          id: '1',
-          question: "What is the main difference of array and linked list?",
-          answer: "Linked list is more dynamic",
-          dateCreated: '20-08-20'
-        },
-        {
-          id: '2',
-          question: "What are main types of algorithms",
-          answer: "Searching, sorting and something",
-          dateCreated: '20-08-20'
-        },
-      ],
-    },
-  ],
+  decks: [],
   error: null,
 };
 

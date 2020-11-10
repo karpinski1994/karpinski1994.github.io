@@ -3,10 +3,10 @@ const { validationResult } = require("express-validator");
 
 // const HttpError = require("../models/http-error");
 
-const mockProducts =  [
+const mockDecks =  [
     {
       id: "1",
-      title: "Javascript",
+      title: "Javascript ipt ipt",
       questionsQuantity: "30",
       description: 'Javascript descbalbalalsl',
       buttonText: "Start",
@@ -71,7 +71,7 @@ const mockProducts =  [
       ],
     },
   ]
-function makeProductList(Product) {
+function makeDeckList(Deck) {
 
   return Object.freeze({
     add,
@@ -79,10 +79,10 @@ function makeProductList(Product) {
     remove,
   });
   async function getAll() {
-    let products;
+    ('GETALL')
     // TODO: we can one error more generic
     // try {
-    //   // products = await Product.find();
+    //   // products = await Deck.find();
     // } catch (err) {
     //   return new HttpError(
     //     "Fetching products failed, please try again later.",
@@ -94,7 +94,7 @@ function makeProductList(Product) {
     //   return new HttpError("Could not find any products", 404)
     // }
     // return products;
-    return mockProducts
+    return mockDecks
   };
 
   async function add(req, res, next) {
@@ -109,7 +109,7 @@ function makeProductList(Product) {
     }
     let updatedProducts = [];
     const { name, category, description } = req.body;
-    const newProduct = new Product({
+    const newProduct = new Deck({
       name,
       category,
       description,
@@ -118,7 +118,7 @@ function makeProductList(Product) {
       const sess = await mongoose.startSession();
       sess.startTransaction();
       await newProduct.save({ session: sess });
-      updatedProducts = await Product.find();
+      updatedProducts = await Deck.find();
       await sess.commitTransaction();
     } catch (err) {
       const error = new HttpError(
@@ -136,7 +136,7 @@ function makeProductList(Product) {
     let product;
     let newProducts = [];
     try {
-      product = await Product.findById(pid);
+      product = await Deck.findById(pid);
     } catch (err) {
       const error = new HttpError("Server error, could not delete product.", 500);
       return next(error);
@@ -151,15 +151,15 @@ function makeProductList(Product) {
       sess.startTransaction();
       await product.remove({ session: sess });
       await sess.commitTransaction();
-      newProducts = await Product.find();
+      newProducts = await Deck.find();
     } catch (err) {
       const error = new HttpError("Server error, could not delete product.", 500);
       return next(error);
     }
 
-    res.status(200).json({ message: "Product deleted.", products: newProducts });
+    res.status(200).json({ message: "Deck deleted.", products: newProducts });
   };
 }
 // exports.getProducts = getProducts;
 // exports.addProduct = addProduct;
-module.exports = makeProductList;
+module.exports = makeDeckList;

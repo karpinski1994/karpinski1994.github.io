@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchDecks, removeDeck } from "actions";
 import { decksSelector } from "reducers/index";
-
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Questions from 'containers/Questions/Questions';
@@ -21,11 +20,14 @@ interface ParamTypes {
 function Deck(props: any) {
   const [deck, setDeck] = useState<DeckModel>({id: '', title: '', description: '', questions: []});
   const { id } = useParams<ParamTypes>();
-
+  const {decks, fetchDecks} = props;
   useEffect(() => {
-    const foundDeck = props?.decks.find((d: {id: string, title: string, description: string, questions: string[]}) => d.id === id);
+    if(!decks.length) fetchDecks(); 
+  }, [decks])
+  useEffect(() => {
+    const foundDeck = decks.find((d: DeckModel) => d.id === id);
     setDeck(foundDeck)
-  }, [props.decks]);
+  }, [decks])
   return (
     <Container maxWidth="md" component="main">
       <Grid item xs={12} md={8} lg={9}>
@@ -46,7 +48,8 @@ function Deck(props: any) {
   );
 }
 
-const mapStateToProps = (state: any) => {
+
+const mapStateToProps = (state: any) => {  
   return { decks: decksSelector(state) };
 };
 

@@ -17,10 +17,12 @@ app.all('/decks', decksController)
 app.get('/decks/:id', decksController)
 
 function decksController (req, res) {
+  ('req')
   const httpRequest = adaptRequest(req)
   handleDecksRequest(httpRequest)
     .then(({ headers, statusCode, data }) =>
     {
+      ('handle data: ', data)
         res
         .set(headers)
         .status(statusCode)
@@ -53,5 +55,5 @@ app.listen(5000);
     // app listen
 //   })
 //   .catch((err) => {
-//     console.log(err);
+//     (err);
 //   });

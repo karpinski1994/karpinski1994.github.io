@@ -1,6 +1,6 @@
 const HttpError = require("../models/http-error");
 const makeProduct = require("./product")
-function makeProductsEndpointHandler ({ productList }) {
+function makeProductsEndpointHandler ({ deckList }) {
   return async function handle (httpRequest) {
     switch (httpRequest.method) {
       case 'POST':
@@ -19,8 +19,8 @@ function makeProductsEndpointHandler ({ productList }) {
     const { id } = httpRequest.pathParams || {}
 
     const result = id
-    ? await productList.findById({ productId: id })
-    : await productList.getAll()
+    ? await deckList.findById({ productId: id })
+    : await deckList.getAll()
     return {
       headers: {
         'Content-Type': 'application/json'
@@ -31,6 +31,7 @@ function makeProductsEndpointHandler ({ productList }) {
   }
 
   async function postProduct (httpRequest) {
+    console.log('post product')
     let productData = httpRequest.body
     if (!productData) {
       return new HttpError(
@@ -52,7 +53,7 @@ function makeProductsEndpointHandler ({ productList }) {
 
     try {
       const product = makeProduct(productData)
-      const result = await productList.add(product)
+      const result = await deckList.add(product)
       return {
         headers: {
           'Content-Type': 'application/json'

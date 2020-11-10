@@ -33,7 +33,7 @@ export default function Questions({questions}: any) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {questions.map((q: any) => (
+          {questions?.map((q: any) => (
             <TableRow key={q.id}>
               <TableCell>{q.question}</TableCell>
               <TableCell>{q.answer}</TableCell>

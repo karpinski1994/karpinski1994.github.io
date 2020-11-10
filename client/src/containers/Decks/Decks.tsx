@@ -89,45 +89,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const decks = [
-  {
-    id: "1",
-    title: "Data Structures & Algorithms",
-    questionsQuantity: "0",
-    description: ["some description", "blablabla", "dzik"],
-    buttonText: "Start",
-    buttonVariant: "contained",
-  },
-  {
-    id: "2",
-    title: "JavaScript",
-    questionsQuantity: "30",
-    description: ["some description", "blablabla", "dzik"],
-    buttonText: "Start",
-    buttonVariant: "contained",
-  },
-  {
-    id: "3",
-    title: "React & Redux",
-    questionsQuantity: "30",
-    description: ["some description", "blablabla", "dzik"],
-    buttonText: "Start",
-    buttonVariant: "contained",
-  },
-];
-
 const ITEM_HEIGHT = 48;
 
 const options = [];
 function Decks(props: any) {
   const classes = useStyles();
   const history = useHistory();
-
+    const {decks, fetchDecks} = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selectedDeckId, setSelectedDeckId] = React.useState<null | string>(null);
   const open = Boolean(anchorEl);
   useEffect(() => {
-    props.fetchDecks();
+    fetchDecks();
   }, [])
    useEffect(() => {
      console.log('props.decks: ', props.decks);
@@ -159,7 +132,7 @@ function Decks(props: any) {
     setDialogOpen(false);
   };
 
-  const decks = props?.decks;
+
   return (
     <Container maxWidth="md">
       <Box mb={5}>

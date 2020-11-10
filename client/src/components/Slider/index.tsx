@@ -130,7 +130,6 @@ const CustomSlider = ({
 
   useEffect(() => {
     onChange();
-    console.log("state.quantity: ", state.quantity);
   }, [state.quantity]);
 
   const onDragStart = (e: React.DragEvent, id: number) => {};

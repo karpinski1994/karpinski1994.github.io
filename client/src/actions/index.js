@@ -13,7 +13,7 @@ import {
   REMOVE_DECK_FAILURE,
 } from "./types";
 
-const API_URL = "http://localhost:5000/products";
+const API_URL = "http://localhost:5000/decks";
 
 export const createDeck = (product) => {
   return (dispatch) => {
@@ -25,11 +25,9 @@ export const createDeck = (product) => {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
-        console.log('res: ', res);
         dispatch(createDeckSuccess(res.data));
       })
       .catch((err) => {
-        console.log('err: ', err);
         dispatch(createDeckFailure(err.message));
       });
   };
@@ -109,10 +107,12 @@ export const getDeck = (id) => {
   }
 };
 
-const fetchDecksSuccess = (products) => ({
+const fetchDecksSuccess = (decks) => {
+  
+  return ({
   type: FETCH_DECKS_SUCCESS,
-  payload: [...products],
-});
+  payload: [...decks],
+});}
 
 const fetchDecksStarted = () => ({
   type: FETCH_DECKS_STARTED,
