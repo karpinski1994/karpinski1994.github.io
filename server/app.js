@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const adaptRequest = require("./helpers/adapt-request");
-const handleProductsRequest = require("./products/endpoint-handler");
+const handleDecksRequest = require("./decks/endpoint-handler");
 const HttpError = require("./models/http-error");
 const cors = require('cors')
 const dotenv = require("dotenv")
@@ -13,12 +13,12 @@ app.use(cors())
 app.use(bodyParser.json());
 
 
-app.all('/products', productsController)
-app.get('/products/:id', productsController)
+app.all('/decks', decksController)
+app.get('/decks/:id', decksController)
 
-function productsController (req, res) {
+function decksController (req, res) {
   const httpRequest = adaptRequest(req)
-  handleProductsRequest(httpRequest)
+  handleDecksRequest(httpRequest)
     .then(({ headers, statusCode, data }) =>
     {
         res
@@ -43,14 +43,15 @@ app.use((error, req, res, next) => {
 });
 // TODO: Database connection should be extracted somewhere and it's instance injected to app 
 // TODO: Business logic should be framework agnostic
-mongoose
-  .connect(
-        ` mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@decks.1nxya.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
-        { useNewUrlParser: true, useUnifiedTopology: true }
-  )
-  .then(() => {
-    app.listen(5000);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+app.listen(5000);
+// mongoose
+//   .connect(
+//         ` mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@decks.1nxya.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+//         { useNewUrlParser: true, useUnifiedTopology: true }
+//   )
+//   .then(() => {
+    // app listen
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
