@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 
 // const HttpError = require("../models/http-error");
 
-const mockDecks =  [
+let mockDecks =  [
     {
       id: "1",
       title: "Javascript ipt ipt",
@@ -76,10 +76,10 @@ function makeDeckList(Deck) {
   return Object.freeze({
     add,
     getAll,
+    findById,
     remove,
   });
   async function getAll() {
-    ('GETALL')
     // TODO: we can one error more generic
     // try {
     //   // products = await Deck.find();
@@ -97,69 +97,71 @@ function makeDeckList(Deck) {
     return mockDecks
   };
 
-  async function add(req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next(
-        new HttpError(
-          "Invalid data passed, please check your data and try again.",
-          422
-        )
-      );
-    }
-    let updatedProducts = [];
-    const { name, category, description } = req.body;
-    const newProduct = new Deck({
-      name,
-      category,
-      description,
-    });
+  async function findById({deckId}) {
+    const found =  mockDecks.find(({id}) => id === deckId);
+    console.log("FIND BY ID")
+    console.log('mockDecks: ', mockDecks);
+    console.log('found: ', found);
+    return found;
+  }
+
+  async function add(newDeck) {
     try {
-      const sess = await mongoose.startSession();
-      sess.startTransaction();
-      await newProduct.save({ session: sess });
-      updatedProducts = await Deck.find();
-      await sess.commitTransaction();
-    } catch (err) {
-      const error = new HttpError(
-        "Creating product failed, please try again.",
-        500
-      );
-      return next(error);
+ mockDecks.push(newDeck);
+      console.log('newDeck: ', newDeck);
+      console.log('mockDecks: ', mockDecks);
+    }
+     catch(err) {
+       console.log("ERR: ",err)
+     }
+     
+      return mockDecks;
     }
 
     res.status(201).json({ products: updatedProducts });
   };
 
-  async function remove(req, res, next) {
-    const { pid } = req.params;
-    let product;
-    let newProducts = [];
-    try {
-      product = await Deck.findById(pid);
-    } catch (err) {
-      const error = new HttpError("Server error, could not delete product.", 500);
-      return next(error);
-    }
-    if (!product) {
-      const error = new HttpError("Could not find product with this name.", 404);
-      return next(error);
-    }
+  async function remove({deckId}) {
+  console.log('deckId: ', deckId);
+    // const { pid } = req.params;
+    // let product;
+    // let newProducts = [];
+    // try {
+    //   product = await Deck.findById(pid);
+    // } catch (err) {
+    //   const error = new HttpError("Server error, could not delete product.", 500);
+    //   return next(error);
+    // }
+    // if (!product) {
+    //   const error = new HttpError("Could not find product with this name.", 404);
+    //   return next(error);
+    // }
 
+    // try {
+    //   const sess = await mongoose.startSession();
+    //   sess.startTransaction();
+    //   await product.remove({ session: sess });
+    //   await sess.commitTransaction();
+    //   newProducts = await Deck.find();
+    // } catch (err) {
+    //   const error = new HttpError("Server error, could not delete product.", 500);
+    //   return next(error);
+    // }
     try {
-      const sess = await mongoose.startSession();
-      sess.startTransaction();
-      await product.remove({ session: sess });
-      await sess.commitTransaction();
-      newProducts = await Deck.find();
-    } catch (err) {
-      const error = new HttpError("Server error, could not delete product.", 500);
-      return next(error);
+      mockDecks =  mockDecks.filter(({id}) => id !== deckId);
     }
-
-    res.status(200).json({ message: "Deck deleted.", products: newProducts });
+    catch (err) {
+      console.log("ERROR: ", err)
+    }
+    
+    return mockDecks;
+    // res.status(200).json({ message: "Deck deleted.", products: newProducts });
   };
-}
+
+
+
+
+
 // exports.getProducts = getProducts;
 // exports.addProduct = addProduct;
 module.exports = makeDeckList;

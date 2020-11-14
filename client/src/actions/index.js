@@ -1,6 +1,9 @@
 import axios from "axios";
 // TODO: Separate deck and deckslist
 import {
+  FETCH_DECK_STARTED,
+  FETCH_DECK_SUCCESS,
+  FETCH_DECK_FAILURE,
   FETCH_DECKS_STARTED,
   FETCH_DECKS_SUCCESS,
   FETCH_DECKS_FAILURE,
@@ -13,15 +16,16 @@ import {
   REMOVE_DECK_FAILURE,
 } from "./types";
 
-const API_URL = "http://localhost:5000/decks";
+const API_URL = `http://localhost:8000/decks`;
 
-export const createDeck = (product) => {
+export const createDeck = (deck) => {
+console.log('deck: ', deck);
   return (dispatch) => {
     dispatch(createDeckStarted());
     axios({
       method: "post",
       url: API_URL,
-      data: JSON.stringify(product),
+      data: JSON.stringify(deck),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
@@ -35,7 +39,7 @@ export const createDeck = (product) => {
 
 const createDeckSuccess = (updatedProducts) => ({
   type: ADD_DECK_SUCCESS,
-  payload: [...updatedProducts]
+  payload: [...updatedProducts],
 });
 
 const createDeckStarted = () => ({
@@ -53,24 +57,29 @@ const createDeckFailure = (error) => {
 
 //
 export const removeDeck = (id) => {
-
+  console.log('removeDeck id: ', id)
   return (dispatch) => {
     dispatch(removeDeckStarted());
     axios
       .delete(`${API_URL}/${id}`)
       .then(({ data }) => {
-        dispatch(removeDeckSuccess(data.products));
+      console.log('data: ', data);
+        dispatch(removeDeckSuccess(data));
       })
       .catch((err) => {
+        console.log('err: ', err)
         dispatch(removeDeckFailure(err.message));
       });
   };
 };
 
-const removeDeckSuccess = (updatedProducts) => ({
+const removeDeckSuccess = (updatedDecks) => {
+console.log('updatedDecks: ', updatedDecks);
+  
+  return{
   type: REMOVE_DECK_SUCCESS,
-  payload: [...updatedProducts],
-});
+  payload: [...updatedDecks],
+}};
 
 const removeDeckStarted = () => ({
   type: REMOVE_DECK_STARTED,
@@ -90,33 +99,68 @@ const removeDeckFailure = (error) => {
 export const fetchDecks = () => {
   return function (dispatch) {
     dispatch(fetchDecksStarted());
-    axios.get(API_URL)
+    axios
+      .get(API_URL)
       .then(({ data }) => {
         dispatch(fetchDecksSuccess(data));
       })
       .catch((err) => {
         dispatch(fetchDecksFailure(err.message));
       });
-  }
+  };
+};
+
+export const fetchDeck = (id) => {
+  return function (dispatch) {
+    dispatch(fetchDeckStarted());
+    axios
+      .get(`${API_URL}/${id}`)
+      .then(({ data }) => {
+        dispatch(fetchDeckSuccess(data));
+      })
+      .catch((err) => {
+        dispatch(fetchDeckFailure(err.message));
+      });
+  };
 };
 
 export const getDeck = (id) => {
   return {
     type: GET_DECK,
     payload: id,
-  }
+  };
 };
 
 const fetchDecksSuccess = (decks) => {
-  
-  return ({
-  type: FETCH_DECKS_SUCCESS,
-  payload: [...decks],
-});}
+  return {
+    type: FETCH_DECKS_SUCCESS,
+    payload: [...decks],
+  };
+};
 
 const fetchDecksStarted = () => ({
   type: FETCH_DECKS_STARTED,
 });
+
+const fetchDeckStarted = () => ({
+  type: FETCH_DECK_STARTED,
+});
+
+const fetchDeckSuccess = (deck) => {
+  return {
+    type: FETCH_DECK_SUCCESS,
+    payload: deck,
+  };
+};
+
+const fetchDeckFailure = (error) => {
+  return {
+    type: FETCH_DECK_FAILURE,
+    payload: {
+      error,
+    },
+  };
+};
 
 const fetchDecksFailure = (error) => {
   return {

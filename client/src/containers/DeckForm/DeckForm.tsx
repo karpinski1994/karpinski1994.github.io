@@ -6,10 +6,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { connect } from "react-redux";
-import { createDeck } from "actions";
+import { createDeck, removeDeck } from "actions";
+import { deckSelector, decksSelector } from "reducers";
 // TODO: Extract logic above and make form reusable
 // TODO: Declare fields in an array and render them dynamically
-export function DeckForm(props: any) {
+function DeckForm(props: any) {
   return (
     <Formik
       initialValues={{ title: "", description: "" }}
@@ -27,6 +28,8 @@ export function DeckForm(props: any) {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
+      console.log('values: ', values);
+      console.log('props: ', props);
         props.createDeck(values);
       }}
     >
@@ -85,7 +88,12 @@ export function DeckForm(props: any) {
     </Formik>
   );
 }
+const mapStateToProps = (state: any) => {
+  console.log("state: ", state);
+  console.log("state: ", { deck: deckSelector(state) });
+  return { decks: decksSelector(state), deckData: {...state.deckData} };
+};
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   createDeck,
 })(DeckForm);

@@ -27,7 +27,7 @@ export default function AlertDialog(props: any) {
           <Button onClick={props.handleClose} color="inherit">
             Disagree
           </Button>
-          <Button onClick={props.handleClose} color="secondary" autoFocus>
+          <Button onClick={props.handleAgreement} color="secondary" autoFocus>
             Agree
           </Button>
         </DialogActions>

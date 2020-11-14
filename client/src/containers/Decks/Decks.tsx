@@ -105,9 +105,11 @@ function Decks(props: any) {
    useEffect(() => {
      console.log('props.decks: ', props.decks);
   }, [props.decks])
-  const handleMoreVertClick = (event: React.MouseEvent<HTMLElement>, id: string) => {
+  const handleMoreVertClick = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+  console.log('id: ', id);
     // event.stopPropagation();
     setSelectedDeckId(id);
+    console.log('selectedDeckId: ', selectedDeckId)
     setAnchorEl(event.currentTarget);
   };
 
@@ -131,6 +133,13 @@ function Decks(props: any) {
     handleCardMenuClose();
     setDialogOpen(false);
   };
+
+  const handleDialogAgreement = () => {
+    console.log('selectedDeckId: ', selectedDeckId);
+    props.removeDeck(selectedDeckId)
+    handleCardMenuClose();
+    setDialogOpen(false);
+  }
 
 
   return (
@@ -164,6 +173,7 @@ function Decks(props: any) {
                 titleTypographyProps={{ align: "center", variant: "caption" }}
                 action={
                   <>
+                  {/* TODO: Prevent from clicking on the svg icon */}
                     <IconButton
                       id={deck.id}
                       aria-label="more"
@@ -220,7 +230,7 @@ function Decks(props: any) {
           </Grid>
         ))}
       </Grid>
-      <AlertDialog isOpen={isDialogOpen} handleClose={handleDialogClose} title='Remove deck' text='Are you sure you want to remove this deck?'/>
+      <AlertDialog isOpen={isDialogOpen} handleClose={handleDialogClose} handleAgreement={handleDialogAgreement} title='Remove deck' text='Are you sure you want to remove this deck?'/>
     </Container>
   );
 }
@@ -233,4 +243,5 @@ console.log('state: ', state);
 
 export default connect(mapStateToProps, {
   fetchDecks,
+  removeDeck
 })(Decks);

@@ -1,26 +1,28 @@
 const HttpError = require("../models/http-error");
-const makeProduct = require("./product")
-function makeProductsEndpointHandler ({ deckList }) {
+const makeDeck = require("./deck")
+
+function makeDecksEndpointHandler ({ deckList }) {
+  console.log("JPDLE")
   return async function handle (httpRequest) {
+    console.log('httpRequest.method: ', httpRequest.method);
     switch (httpRequest.method) {
       case 'POST':
-        return postProduct(httpRequest)
+        return postDeck(httpRequest)
 
       case 'GET':
-        return getProducts(httpRequest)
+        return getDecks(httpRequest)
+      
+      case 'DELETE':
+        return removeDeck(httpRequest)
 
       default:
         return new HttpError(`${httpRequest.method} method not allowed.`, 405);
     }
   }
 
-
-  async function getProducts (httpRequest) {
+  async function removeDeck(httpRequest) {
     const { id } = httpRequest.pathParams || {}
-
-    const result = id
-    ? await deckList.findById({ productId: id })
-    : await deckList.getAll()
+    const result = await deckList.remove({deckId: id})
     return {
       headers: {
         'Content-Type': 'application/json'
@@ -30,30 +32,45 @@ function makeProductsEndpointHandler ({ deckList }) {
     }
   }
 
-  async function postProduct (httpRequest) {
-    console.log('post product')
-    let productData = httpRequest.body
-    if (!productData) {
-      return new HttpError(
-          'Bad request. No POST body.',
-          400
-        )
-    }
 
-    if (typeof httpRequest.body === 'string') {
-      try {
-        productData = JSON.parse(productData)
-      } catch {
-        return new HttpError(
-          'Bad request. POST body must be valid JSON.',
-          400
-        )
-      }
+  async function getDecks (httpRequest) {
+    const { id } = httpRequest.pathParams || {}
+    const result = id
+    ? await deckList.findById({ deckId: id })
+    : await deckList.getAll()
+    console.log('result: ', result);
+    return {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      statusCode: 200,
+      data: JSON.stringify(result)
     }
+  }
 
-    try {
-      const product = makeProduct(productData)
-      const result = await deckList.add(product)
+  async function postDeck (httpRequest) {
+    let deckData = httpRequest.body
+    // if (!productData) {
+    //   return new HttpError(
+    //       'Bad request. No POST body.',
+    //       400
+    //     )
+    // }
+
+    // if (typeof httpRequest.body === 'string') {
+    //   try {
+    //     productData = JSON.parse(productData)
+    //   } catch {
+    //     return new HttpError(
+    //       'Bad request. POST body must be valid JSON.',
+    //       400
+    //     )
+    //   }
+    // }
+
+    // try {
+      const deck = makeDeck(deckData)
+      const result = await deckList.add(deck)
       return {
         headers: {
           'Content-Type': 'application/json'
@@ -61,12 +78,12 @@ function makeProductsEndpointHandler ({ deckList }) {
         statusCode: 201,
         data: JSON.stringify(result)
       }
-    } catch (e) {
-      return new HttpError(
-        'Server error',
-        500
-      )
-    }
+    // } catch (e) {
+    //   return new HttpError(
+    //     'Server error',
+    //     500
+    //   )
+    // }
   }
 }
-module.exports = makeProductsEndpointHandler
+module.exports = makeDecksEndpointHandler

@@ -15,14 +15,13 @@ app.use(bodyParser.json());
 
 app.all('/decks', decksController)
 app.get('/decks/:id', decksController)
+app.delete('/decks/:id', decksController)
 
 function decksController (req, res) {
-  ('req')
   const httpRequest = adaptRequest(req)
   handleDecksRequest(httpRequest)
     .then(({ headers, statusCode, data }) =>
     {
-      ('handle data: ', data)
         res
         .set(headers)
         .status(statusCode)
@@ -45,7 +44,8 @@ app.use((error, req, res, next) => {
 });
 // TODO: Database connection should be extracted somewhere and it's instance injected to app 
 // TODO: Business logic should be framework agnostic
-app.listen(5000);
+const port = process.env.PORT || 8000;
+app.listen(port, () => {console.log(`App listening on the port ${port}...`)});
 // mongoose
 //   .connect(
 //         ` mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@decks.1nxya.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
@@ -55,5 +55,5 @@ app.listen(5000);
     // app listen
 //   })
 //   .catch((err) => {
-//     (err);
+//     console.log(err);
 //   });
