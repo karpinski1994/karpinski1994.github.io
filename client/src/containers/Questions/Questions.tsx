@@ -29,7 +29,7 @@ export default function Questions({questions}: any) {
             <TableCell>Answer</TableCell>
             <TableCell>By</TableCell>
             <TableCell>Date</TableCell>
-            <TableCell align="right">Something</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,7 +39,7 @@ export default function Questions({questions}: any) {
               <TableCell>{q.answer}</TableCell>
               <TableCell>userwho created</TableCell>
               <TableCell>date created</TableCell>
-              <TableCell align="right">something</TableCell>
+              <TableCell align="right">Edit: {q.id} (question id)</TableCell>
             </TableRow>
           ))}
         </TableBody>
